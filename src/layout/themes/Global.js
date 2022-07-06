@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+import curvaTop from '../images/Group2.svg'
+import curvaDireita from '../images/Forma2.svg'
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -28,8 +30,11 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         font-family: 'Poppins', sans-serif;
-        background-color:black;
-      
+        background-color: ${p => p.theme.BackGroundColor1};
+        background-image: url(${curvaTop}), url(${curvaDireita});
+        background-repeat: no-repeat;
+        background-position: top left, center right ;   
+        height:100vh;    
     
     }
 
