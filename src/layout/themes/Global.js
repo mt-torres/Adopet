@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import curvaTop from '../images/Group2.svg'
 import curvaDireita from '../images/Forma2.svg'
+import Ilustracao from '../images/Ilustracao.svg'
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -31,9 +32,9 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'Poppins', sans-serif;
         background-color: ${p => p.theme.BackGroundColor1};
-        background-image: url(${curvaTop}), url(${curvaDireita});
+        background-image: url(${curvaTop}), url(${curvaDireita}), url(${Ilustracao});
         background-repeat: no-repeat;
-        background-position: top left, center right ;   
+        background-position: top left, center right, bottom 5% center ;   
         height:100vh;    
     
     }
