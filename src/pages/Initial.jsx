@@ -10,7 +10,7 @@ const Initial = (props)=> {
                 <img src={Logo} alt="" />
                 <Title title="Boas-vindas!"/> 
                 <Paragraph paragraph="Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!"/>
-                <Link to="/register"><Button margin='1rem'>Já tenho Conta</Button></Link> 
+                <Link to="/login"><Button margin='1rem'>Já tenho Conta</Button></Link> 
                 <Link to="/register"><Button>Quero me cadastrar</Button></Link>    
             </Card>
             <Footer/>

@@ -4,6 +4,7 @@ import { GlobalStyle } from "./layout/themes/Global";
 import Initial from "./pages/Initial";
 import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
+import Login from "./pages/Login";
 
 function App() {
     
@@ -15,6 +16,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Initial />} />
 						<Route path="/register" element={<Register />} />
+						<Route path="/Login" element={<Login />} />
 					</Routes>
 				</ThemeProvider>
 			</BrowserRouter>
