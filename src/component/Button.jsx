@@ -15,11 +15,12 @@ const Btn = styled.button`
         background-color:${p => p.theme.buttonColorHover}
     };
     margin-bottom: ${p => p.margin};
+    margin-top: ${p => p.marginTop};
 `
 
 const Button = (props) => {
     return(
-        <Btn margin={props.margin}>{props.children}</Btn>
+        <Btn marginTop={props.marginTop} margin={props.margin}>{props.children}</Btn>
     )
 
 

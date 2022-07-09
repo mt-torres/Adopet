@@ -4,7 +4,6 @@ import curvaDireita from '../images/Forma2.svg'
 import Ilustracao from '../images/Ilustracao.svg'
 
 
-
 export const GlobalStyle = createGlobalStyle`
 
     html, body, div, span, applet, object, iframe,
@@ -39,9 +38,9 @@ export const GlobalStyle = createGlobalStyle`
         background-image: url(${curvaTop}), url(${curvaDireita}), url(${Ilustracao});
         background-repeat: no-repeat;
         background-position: top left, top 40% right, left 40% bottom 14%;  
-        height:100vh;    
-        ${console.log(p=> p.props)}
-    
+        height:100vh;   
+        
+       
     }
 
     
