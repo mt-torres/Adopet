@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 
 const FooterStyled = styled.footer`
+    box-sizing:border-box;
     background-color: ${p => p.theme.BackGroundColor2};
     color: ${p => p.theme.fontColor1};
     width: 100%;
     text-align: center;
     position: absolute;
-    top: 100%;
+    bottom: 0;
     left:0;
 `
 const P = styled.p`
@@ -24,4 +25,4 @@ const Footer = (props) => {
 
 }
 
-export default Footer
+export {Footer}

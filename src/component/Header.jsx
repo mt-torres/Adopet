@@ -32,10 +32,14 @@ function handleImg({type}){
     }
 
 }
+const Container = styled.header`
+    box-sizing:border-box;  
+    margin-left: 48.5px;
+    padding-top: 48.5px;
+    
+`
 
 const Ul = styled.ul`
-    margin-left: 48.5px;
-    margin-top: 48.5px;
     display: flex;
     align-items: center;
 
@@ -59,7 +63,7 @@ const Img = styled.img`
 
 const Header = (props) => {
     return(
-        <header>
+        <Container>
             <Ul>
                 <li><a href="#"><Img type="logo" src={logo} alt="" /></a></li>
                 <li><a href="#"><Img type="house" src={house} alt="" /></a></li>
@@ -67,10 +71,10 @@ const Header = (props) => {
                 <li><a href="#"><Img type="user" src={user} alt="" /></a></li>
                 
             </Ul>
-        </header>
+        </Container>
     )
 
 
 }
 
-export default Header
+export {Header}

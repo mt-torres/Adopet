@@ -1,6 +1,7 @@
+import { Link, useLocation} from "react-router-dom";
 import styled from "styled-components";
-import Button from "./Button"
 import Logo from "../layout/images/Logo.svg"
+import { Button } from "./Button";
 
 const Container = styled.main`
     margin-top:6.1rem;
@@ -23,20 +24,20 @@ const Paragraf = styled.p`
     text-align: center;
     margin-bottom: 1.5rem;
 
-
 `
 
 const Card = (props) => {
+    const {pathname} = useLocation();
     return(
         <Container>
             <img src={Logo} alt="" />
             <Title>{props.title}</Title>
             <Paragraf>{props.paragraf}</Paragraf>
-            <Button margin='1rem'>Já tenho Conta</Button>
-            <Button>Quero me cadastrar</Button>
+            <Link to="/register" active={pathname === ''}><Button margin='1rem'>Já tenho Conta</Button></Link> 
+            <Link to="/register" active={pathname === '/register'}><Button>Quero me cadastrar</Button></Link>
         </Container>
     )
 
 }
 
-export default Card;
+export {Card};

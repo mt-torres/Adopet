@@ -9,6 +9,7 @@ const Btn = styled.button`
     border: none;
     font-weight: 600;
     cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     transition: all 0.5s linear;
     :hover{
         background-color:${p => p.theme.buttonColorHover}
@@ -24,4 +25,4 @@ const Button = (props) => {
 
 }
 
-export default Button;
+export {Button};

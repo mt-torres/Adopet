@@ -3,6 +3,8 @@ import curvaTop from '../images/Group2.svg'
 import curvaDireita from '../images/Forma2.svg'
 import Ilustracao from '../images/Ilustracao.svg'
 
+
+
 export const GlobalStyle = createGlobalStyle`
 
     html, body, div, span, applet, object, iframe,
@@ -30,12 +32,15 @@ export const GlobalStyle = createGlobalStyle`
         list-style: none;  
     }
     body {
+        box-sizing:border-box;
+        position: relative;
         font-family: 'Poppins', sans-serif;
         background-color: ${p => p.theme.BackGroundColor1};
         background-image: url(${curvaTop}), url(${curvaDireita}), url(${Ilustracao});
         background-repeat: no-repeat;
-        background-position: top left, center right, bottom 5% center ;   
+        background-position: top left, top 40% right, left 40% bottom 14%;  
         height:100vh;    
+        ${console.log(p=> p.props)}
     
     }
 
