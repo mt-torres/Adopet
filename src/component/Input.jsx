@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import eyes from "../layout/images/eyes.svg"
 
 const Container = styled.div`
     display: flex;
@@ -13,8 +13,10 @@ const InputStyled = styled.input`
     outline:none;
     border:none;
     border-radius: 6px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-    width:312px;
+    border-top-right-radius:${p => p.password?'0':'6px'}; 
+    border-bottom-right-radius: ${p => p.password?'0':'6px'};
+    box-shadow: ${p => p.password?'3px 2px 2px rgba(0, 0, 0, 0.15)':'2px 2px 2px rgba(0, 0, 0, 0.15)'};
+    width: ${p => p.password?'250px':'312px'};
     height:40px;
     box-sizing: border-box;
     padding: 0.75rem;
@@ -28,12 +30,32 @@ const LabelStyled = styled.label`
     color: ${p => p.theme.fontColor2};
     font-weight:400;
 `
+const ContainerPassword = styled.div`
+    display:flex;
+
+`
+
+const CheckPassword = styled.span`
+    display:${p => p.password?'block':'none'};
+    background:url(${eyes}) no-repeat center;
+    width:62px;
+    background-color: ${p => p.theme.inputBgColor};
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    cursor: pointer;
+`
+
 
 const Input = (props) => {
+
     return(
-        <Container mb={props.mb}>
+        <Container mb={props.mb} >
             <LabelStyled id={props.id}>{props.label}</LabelStyled>
-            <InputStyled placeholder={props.placeholder} type={props.type?props.type:"text"} id={props.id}></InputStyled>
+            <ContainerPassword>
+                <InputStyled placeholder={props.placeholder} type={props.type?props.type:"text"} password={props.password} id={props.id}></InputStyled>
+                <CheckPassword password={props.password}></CheckPassword>
+            </ContainerPassword>
         </Container>
     )
 

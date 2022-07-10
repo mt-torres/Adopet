@@ -65,10 +65,10 @@ const Header = (props) => {
     return(
         <Container>
             <Ul>
-                <li><a href="#"><Img type="logo" src={logo} alt="" /></a></li>
-                <li><a href="#"><Img type="house" src={house} alt="" /></a></li>
-                <li><a href="#"><Img type="message" src={message} alt="" /></a></li>
-                <li><a href="#"><Img type="user" src={user} alt="" /></a></li>
+                <li><Img type="logo" src={logo} alt="" /></li>
+                <li><Img type="house" src={house} alt="" /></li>
+                <li><Img type="message" src={message} alt="" /></li>
+                <li><Img type="user" src={user} alt="" /></li>
                 
             </Ul>
         </Container>

@@ -48,6 +48,7 @@ const Login = (props)=> {
                         id="Senha"
                         label="Senha"
                         placeholder="Insira sua senha"
+                        password
                     />
                     <Link to="/register"><Span>Esqueci minha senha.</Span></Link> 
                   

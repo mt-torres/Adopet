@@ -46,12 +46,14 @@ const Register = (props)=> {
                         label="Senha"
                         mb
                         placeholder="Crie sua senha"
+                        password
                     />
                     <Input
                         type="password"
                         id="confirmar-senha"
                         label="Confirmar sua senha"
                         placeholder="Repite a senha criada acima"
+                        password
                     />
                     <Button marginTop="1.5rem">Cadastar</Button>
                 </Form>
