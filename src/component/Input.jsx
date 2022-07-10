@@ -15,7 +15,7 @@ const InputStyled = styled.input`
     border-radius: 6px;
     border-top-right-radius:${p => p.password?'0':'6px'}; 
     border-bottom-right-radius: ${p => p.password?'0':'6px'};
-    box-shadow: ${p => p.password?'3px 2px 2px rgba(0, 0, 0, 0.15)':'2px 2px 2px rgba(0, 0, 0, 0.15)'};
+    box-shadow: ${p => p.password?'2px 2px 2px rgba(0, 0, 0, 0.15)':'2px 2px 2px rgba(0, 0, 0, 0.15)'};
     width: ${p => p.password?'250px':'312px'};
     height:40px;
     box-sizing: border-box;

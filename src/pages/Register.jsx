@@ -6,13 +6,13 @@ import formaEsquerda from '../layout/images/Forma_equerda.svg'
 import logo from '../layout/images/logo2.svg'
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${p => p.theme.BackGroundColor3};
-    background-image: url(${patas}), url(${curvaTop}), url(${formaEsquerda});
-    background-repeat: no-repeat;
-    background-position: top right, top left, top 72% left; 
+     body {
+        background-color: ${p => p.theme.BackGroundColor3};
+        background-image: url(${patas}), url(${curvaTop}), url(${formaEsquerda});
+        background-repeat: no-repeat;
+        background-position: top right, top left, top 72% left; 
 
-};
+    };
   
 `
 
@@ -20,7 +20,7 @@ const Register = (props)=> {
        return(
         <>
            <GlobalStyle/> 
-            <Header/>  
+            <Header user='false'/>  
                 <Card margin='5.4rem'>
                     <img src={logo} alt="" />
                     <Paragraph color="blue" marginT='1.5rem' marginB='0.5rem' paragraph="Ainda não tem cadastro?"/>
@@ -64,4 +64,4 @@ const Register = (props)=> {
 
 }
 
-export default Register;
+export {Register};

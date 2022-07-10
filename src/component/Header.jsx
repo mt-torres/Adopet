@@ -10,23 +10,28 @@ function handleImg({type}){
         return css`
          width: 128px;
          height:31px;
-        
+         margin-right:65px;
         `
     }else if(type==='house'){
         return css`
         width: 19.2px;
         height: 23px;
+        margin-right:65px;
        
        `
     }else if(type==='message'){
         return css`
         width: 23,14px;
         height: 19px;
+        margin-right:65px;
        
      `
     }else{
         return css`
+        position:absolute;
         width: 48px;
+        top:0;
+        right:0;
        
        `
     }
@@ -34,41 +39,46 @@ function handleImg({type}){
 }
 const Container = styled.header`
     box-sizing:border-box;  
-    margin-left: 48.5px;
-    padding-top: 48.5px;
+    margin:0 49.5px;
+    padding-top: 40px;
+  
     
 `
 
 const Ul = styled.ul`
     display: flex;
     align-items: center;
+    height:50px;
+    position:relative;
 
 `
 const Img = styled.img`
-    margin-right: 65px;
-
+   
    ${handleImg} 
 
    @media(max-width: 360px) {
     ${p => p.type === 'logo'? css`
         display: none;
     `: null}
-    ${p => p.type === 'user'?css`
+
+    ${p => p.type === 'user' && p.user?css`
         display: none;
-    `: null}
+    `:null }
     
   }
 
-`
+   
+ `   
+    
 
 const Header = (props) => {
     return(
         <Container>
             <Ul>
-                <li><Img type="logo" src={logo} alt="" /></li>
+                <li><Img type="logo"  src={logo} alt="" /></li>
                 <li><Img type="house" src={house} alt="" /></li>
                 <li><Img type="message" src={message} alt="" /></li>
-                <li><Img type="user" src={user} alt="" /></li>
+                <li><Img type="user" user={props.user} src={user} alt="" /></li>
                 
             </Ul>
         </Container>

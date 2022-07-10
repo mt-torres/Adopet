@@ -7,13 +7,13 @@ import logo from '../layout/images/logo2.svg'
 import { Link } from "react-router-dom"
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${p => p.theme.BackGroundColor3};
-    background-image: url(${patas}), url(${curvaTop}), url(${formaEsquerda});
-    background-repeat: no-repeat;
-    background-position: top right, top left, top 72% left; 
+    body {
+        background-color: ${p => p.theme.BackGroundColor3};
+        background-image: url(${patas}), url(${curvaTop}), url(${formaEsquerda});
+        background-repeat: no-repeat;
+        background-position: top right, top left, top 72% left; 
 
-};
+    };
   
 `
 
@@ -29,7 +29,7 @@ const Login = (props)=> {
        return(
         <>
            <GlobalStyle/> 
-            <Header/>  
+            <Header user='false'/>  
                 <Card margin='5.4rem'>
                     <img src={logo} alt="" />
                     <Paragraph color="blue" marginT='3.54rem' marginB='2.62rem' paragraph="Já tem conta? Faça seu login:"/>
@@ -61,4 +61,4 @@ const Login = (props)=> {
 
 }
 
-export default Login;
+export {Login};

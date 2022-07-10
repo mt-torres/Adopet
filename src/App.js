@@ -1,10 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { theme } from "./layout/themes/theme";
 import { GlobalStyle } from "./layout/themes/Global";
-import Initial from "./pages/Initial";
-import Register from "./pages/Register";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Login from "./pages/Login";
+import {Register, Initial, Login, Home } from "./pages/";
 
 function App() {
     
@@ -17,6 +15,7 @@ function App() {
 						<Route path="/" element={<Initial />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/Login" element={<Login />} />
+						<Route path="/Home" element={<Home />} />
 					</Routes>
 				</ThemeProvider>
 			</BrowserRouter>

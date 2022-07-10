@@ -5,7 +5,7 @@ import Logo from "../layout/images/Logo.svg"
 const Initial = (props)=> {
      return(
         <>
-            <Header/>  
+            <Header user='false'/>  
             <Card>
                 <img src={Logo} alt="" />
                 <Title title="Boas-vindas!"/> 
@@ -20,4 +20,4 @@ const Initial = (props)=> {
 
 }
 
-export default Initial;
+export {Initial};
