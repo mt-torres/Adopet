@@ -28,23 +28,25 @@ const Register = (props)=> {
                 </Card>
                 <Form>
                     <Input
+                        width='312px'
                         type="email"
                         id="email"
                         label="Email"
-                        mb
+                        mb='1.25rem'
                         placeholder="Escolha seu melhor email"
                     />
                     <Input
+                        width='312px'  
                         id="Nome"
                         label="Nome"
-                        mb
+                        mb='1.25rem'
                         placeholder="Digite seu nome completo"
                     />
                     <Input
                         type="password"
                         id="Senha"
                         label="Senha"
-                        mb
+                        mb='1.25rem'
                         placeholder="Crie sua senha"
                         password
                     />

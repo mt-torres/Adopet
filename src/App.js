@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./layout/themes/theme";
 import { GlobalStyle } from "./layout/themes/Global";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import {Register, Initial, Login, Home } from "./pages/";
+import {Register, Initial, Login, Home, Message } from "./pages/";
 
 function App() {
     
@@ -14,8 +14,9 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Initial />} />
 						<Route path="/register" element={<Register />} />
-						<Route path="/Login" element={<Login />} />
-						<Route path="/Home" element={<Home />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/home" element={<Home />} />
+						<Route path="/message" element={<Message />} />
 					</Routes>
 				</ThemeProvider>
 			</BrowserRouter>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.main`
-    margin-top:  ${p => p.margin? p.margin: '5rem' };
+    margin-top:  ${p => p.margin? p.margin: '4.5rem' };
     display: flex;
     flex-direction:column;
     color: ${p=> p.theme.fontColor1};

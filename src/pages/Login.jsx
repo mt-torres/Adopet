@@ -36,10 +36,11 @@ const Login = (props)=> {
                 </Card>
                 <Form>
                     <Input
+                        width='312px'  
                         type="email"
                         id="email"
                         label="Email"
-                        mb
+                        mb='1.25rem'
                         placeholder="Insira seu email"
                     />
 

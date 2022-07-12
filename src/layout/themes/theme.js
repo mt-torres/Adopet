@@ -9,6 +9,7 @@ export const theme = {
     fontColor2: "#737380",
     fontColor3: "#3772FF",
     inputBgColor:'#F7F7F7',
+    inputBgColor2:'#ffffff',
     inputFontColor: "#BCBCBC",
     
 }
