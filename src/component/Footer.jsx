@@ -7,18 +7,19 @@ const FooterStyled = styled.footer`
     color: ${p => p.theme.fontColor1};
     width: 100%;
     text-align: center;
-    position: absolute;
+    position: ${p=> p.fixed?'relative':'absolute'};
     bottom: 0;
-    left:0;
+
+
 `
-const P = styled.p`
+    const P = styled.p`
     padding: 2.5rem 1rem;
 `
 
 const Footer = (props) => {
     
     return(
-        <FooterStyled>
+        <FooterStyled fixed={props.fixed}>
             <P>2022 - Desenvolvido por Marcos Torres</P>
         </FooterStyled>    
     )

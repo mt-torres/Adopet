@@ -9,6 +9,7 @@ const FormStyled = styled.form`
     padding: ${p => p.padding?p.padding: '0'};
     margin:${p => p.margin?p.margin: '0'};
     border-radius: 10px;
+
 `
 
 

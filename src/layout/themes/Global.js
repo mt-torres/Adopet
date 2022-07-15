@@ -31,16 +31,22 @@ export const GlobalStyle = createGlobalStyle`
         list-style: none;  
     }
     body {
+        font-family: 'Poppins', sans-serif;  
         box-sizing:border-box;
-        position: relative;
-        font-family: 'Poppins', sans-serif;
         background-color: ${p => p.theme.BackGroundColor1};
         background-image: url(${curvaTop}), url(${curvaDireita}), url(${Ilustracao});
         background-repeat: no-repeat;
         background-position: top left, top 40% right, left 40% bottom 14%;  
-        height:100vh;   
+        min-height: 100vh;
         
        
+    }
+
+    #root{
+        position: relative;
+        min-height: 100vh;
+        
+        
     }
 
     

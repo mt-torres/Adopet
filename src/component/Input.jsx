@@ -30,7 +30,7 @@ const InputStyled = styled.input`
 const LabelStyled = styled.label`
     margin-bottom:0.25rem;
     color: ${p => p.optional? p.theme.fontColor3: p.theme.fontColor2};
-    font-weight:400;
+    font-weight:${p => p.optional? '600':'400'};
     
 `
 const ContainerPassword = styled.div`

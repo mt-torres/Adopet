@@ -6,7 +6,7 @@ const ParagrafStyled = styled.p`
     margin-bottom: ${p => p.marginB? p.marginB: '1.5rem' };
     margin-top: ${p => p.marginT};
     color: ${p => p.color === "blue"? p.theme.fontColor3: p.theme.fontColor1 };
-    ${p => p.marginB? console.log(p.marginB):null };
+ 
 `
 
 const Paragraph = (props) => {
