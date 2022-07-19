@@ -6,6 +6,19 @@ const TitleStyled = styled.h1`
     margin-top: 1.5rem;
     font-weight: 500;
     font-size: 1.625rem;
+    
+    
+    @media(min-width: 768px) {
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    @media(max-height: 800px){
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+         
+
 `
 
 const Title = (props) => {

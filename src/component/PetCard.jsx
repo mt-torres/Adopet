@@ -5,7 +5,16 @@ const Container = styled.div`
     display:flex;
     background-color:${p => p.theme.BackGroundColor4};
     z-index:-10;
-    margin-bottom:1rem;
+    width:100%;
+
+    @media(min-width: 768px) {
+            width: 344px;
+        }
+        
+        @media(min-width: 1440px) {
+            width: 363px;
+   
+        } 
     
 `
 const ImageContainer = styled.div`

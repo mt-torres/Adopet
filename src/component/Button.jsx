@@ -16,6 +16,28 @@ const Btn = styled.button`
     };
     margin-bottom: ${p => p.margin};
     margin-top: ${p => p.marginTop};
+
+    @media(min-width: 768px) {
+       width:344px;
+       font-size: 1.125rem;
+    }
+
+          
+    @media(min-width: 1440px) {
+       width:362px;
+       font-size: 1.125rem;
+
+
+    } 
+
+    @media(max-height: 800px){
+        font-size: 1rem;
+
+     }
+
+
+
+
 `
 
 const Button = (props) => {

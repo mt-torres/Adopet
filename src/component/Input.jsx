@@ -25,6 +25,15 @@ const InputStyled = styled.input`
     font-size:14px;
     color:${p => p.theme.inputFontColor};
 
+    @media(min-width: 768px) {
+        width: ${p => p.password?'430px': '492px'};
+    }
+
+    @media(min-width: 1440px) {
+      
+    } 
+
+
 
 `
 const LabelStyled = styled.label`
@@ -65,6 +74,13 @@ const Textarea = styled.textarea`
     text-align: ${p => p.optional? 'left':'center'};
     font-size:14px;
     color:${p => p.theme.inputFontColor};
+    @media(min-width: 768px) {
+        width:492px;
+    }
+
+    @media(min-width: 1440px) {
+      
+    } 
 `
 
 

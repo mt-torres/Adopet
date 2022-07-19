@@ -1,7 +1,11 @@
 import { createGlobalStyle } from "styled-components";
-import curvaTop from '../images/Group2.svg'
-import curvaDireita from '../images/Forma2.svg'
-import Ilustracao from '../images/Ilustracao.svg'
+import curvaTop from '../images/Group2.svg';
+import curvaDireita from '../images/Forma2.svg';
+import Ilustracao from '../images/Ilustracao.svg';
+import IlustracaoTablet from '../images/IlustracaoTablet.svg';
+import IlustracaoDesktop from '../images/IlustracaoDesktop.svg';
+import Forma1TD from '../images/Forma1TD.svg';
+import Forma2TD from '../images/Forma2TD.svg';
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -38,14 +42,45 @@ export const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         background-position: top left, top 40% right, left 40% bottom 14%;  
         min-height: 100vh;
+
         
-       
+        
+        @media(min-width: 768px) {
+            background-image: url(${Forma1TD}), url(${Forma2TD}), url(${IlustracaoTablet});
+            background-repeat: no-repeat;
+            background-position: top left, top 40% right, left 40% bottom 10%;  
+
+            
+        }
+        
+        @media(max-height: 844px) and (min-width: 768px){
+        background-image: url(${Forma1TD}), url(${Forma2TD}), url(${IlustracaoDesktop});
+        background-repeat: no-repeat;
+        background-position: top left, top 40% right, center bottom ;
+        background-size: 35%, 8%, 15% ;
+
+    }
+          
+        @media(min-width: 1440px) {
+            background-image: url(${Forma1TD}), url(${Forma2TD}), url(${IlustracaoDesktop});
+            background-repeat: no-repeat;
+            background-position: top left, top 40% right, center bottom 10%;
+
+        } 
+
+        @media(max-height: 1080px) and (max-width: 810px) {
+           background-position: top left, top 40% right, center bottom 2%;
+
+        }
+
+ 
+
+
     }
 
     #root{
         position: relative;
-        min-height: 100vh;
-        
+        min-height: 100vh;      
         
     }
 

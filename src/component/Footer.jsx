@@ -10,10 +10,30 @@ const FooterStyled = styled.footer`
     position: ${p=> p.fixed?'relative':'absolute'};
     bottom: 0;
 
+ 
+
 
 `
     const P = styled.p`
     padding: 2.5rem 1rem;
+
+    @media(max-height: 1080px) and (max-width: 810px) {
+        padding: 0.5rem 1rem;
+
+    }
+    
+    @media(max-height: 800px){
+        padding: 0.5rem 1rem;
+
+    }
+
+    @media(min-width: 1440px){
+        padding: 1.75rem 1rem;
+
+    }
+
+
+
 `
 
 const Footer = (props) => {

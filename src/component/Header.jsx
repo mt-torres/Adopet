@@ -56,7 +56,7 @@ const Img = styled.img`
    
    ${handleImg} 
 
-   @media(max-width: 360px) {
+   @media(max-width: 1440px) {
     ${p => p.type === 'logo'? css`
         display: none;
     `: null}
@@ -65,6 +65,24 @@ const Img = styled.img`
         display: none;
     `:null }
     
+  }
+
+  @media(min-width: 1440px) {
+    ${p => p.type === 'logo'? css`
+        display: none;
+    `: null}
+
+    ${p => p.type === 'user' && p.user?css`
+        display: none;
+    `:null }
+    
+  }
+
+  @media(min-width: 768px) {
+
+    ${p => p.type === 'logo'? css`
+        display: block;
+    `: null}
   }
 
    

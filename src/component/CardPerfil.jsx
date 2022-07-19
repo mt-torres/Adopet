@@ -4,7 +4,7 @@ const Span = styled.label`
     font-weight:600 ;
     color:${p => p.theme.fontColor3};
     margin-right:auto;
-    padding-left:0.6rem;
+    padding-left:16px;
     margin-bottom:0.5rem;
 
 `

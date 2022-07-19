@@ -4,6 +4,10 @@ import curvaTop from '../layout/images/Group2.svg'
 import patas from '../layout/images/Patas.svg'
 import formaEsquerda from '../layout/images/Forma_equerda.svg'
 import logo from '../layout/images/logo2.svg'
+import Forma1TD from '../layout/images/Forma1TD.svg'
+import Forma2TD from '../layout/images/Forma2TD.svg'
+import PatasTablet from '../layout/images/PatasTablet.svg'
+import PatasDesktop from '../layout/images/PatasDesktop.svg'
 import { Link } from "react-router-dom"
 
 const GlobalStyle = createGlobalStyle`
@@ -13,6 +17,36 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         background-position: top right, top left, top 72% left; 
 
+        @media(min-width: 768px) {
+            background-image: url(${PatasTablet}), url(${Forma1TD}), url(${Forma2TD});
+            background-repeat: no-repeat;
+            background-position: top right, top left, top 50% right; 
+        }
+        
+        @media(min-width: 1440px) {
+            background-image: url(${PatasDesktop}), url(${Forma1TD}), url(${Forma2TD});
+            background-repeat: no-repeat;
+            background-position: top right, top left, top 50% right; 
+           
+   
+        } 
+
+        @media(max-height: 844px) and (min-width: 768px) {
+            background-image: url(${PatasTablet}), url(${Forma1TD}), url(${Forma2TD});
+            background-repeat: no-repeat;
+            background-position: top right, top left, top 50% right; 
+            background-size: 10%, 35%, 6% ;
+
+        }
+
+        
+       /*  @media(max-height: 844px) and (min-width: 1440px){
+            background-image: url(${PatasDesktop}), url(${Forma1TD}), url(${Forma2TD});
+            background-repeat: no-repeat;
+            background-position: top right, top left, top 50% right; 
+            background-size: 20%, 65%, 15% ;
+
+        } */
     };
   
 `
@@ -32,7 +66,7 @@ const Login = (props)=> {
             <Header user='false'/>  
                 <Card margin='5.4rem'>
                     <img src={logo} alt="" />
-                    <Paragraph color="blue" marginT='3.54rem' marginB='2.62rem' paragraph="Já tem conta? Faça seu login:"/>
+                    <Paragraph color="blue" margin={{all:'3.54rem 0 2rem 0'}}  paragraph="Já tem conta? Faça seu login:"/>
                 </Card>
                 <Form>
                     <Input
