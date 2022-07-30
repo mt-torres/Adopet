@@ -99,6 +99,7 @@ const Input = (props) => {
                  ></Textarea>
                  
                 :   <InputStyled
+                        onChange={props.onChange}
                         optional={props.optional}
                         width={props.width}
                         placeholder={props.placeholder}

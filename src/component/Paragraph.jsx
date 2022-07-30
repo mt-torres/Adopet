@@ -57,8 +57,6 @@ const ParagrafStyled = styled.p`
 
 const Paragraph = (props) => {
 
-  console.log(props.margin)
-
     return(
       
         <ParagrafStyled 
