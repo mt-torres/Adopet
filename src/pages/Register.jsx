@@ -52,7 +52,6 @@ const Register = (props)=> {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [userName, setUserName] = useState('');
-    const userCollectionRef = collection(db,'users')
 
     const {signup, isPending, error } = useSignup() 
 

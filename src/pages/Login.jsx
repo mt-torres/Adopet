@@ -9,6 +9,8 @@ import Forma2TD from '../layout/images/Forma2TD.svg'
 import PatasTablet from '../layout/images/PatasTablet.svg'
 import PatasDesktop from '../layout/images/PatasDesktop.svg'
 import { Link } from "react-router-dom"
+import { useLogin } from "../hooks/useLogin"
+import { useState } from "react"
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -60,6 +62,17 @@ const Span = styled.span`
 `
 
 const Login = (props)=> {
+
+    const [loginEmail, setLoginEmail] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
+    const {login, error, isPending} = useLogin()
+
+    const handleSubimt = (e) =>{
+        e.preventDefault()
+        login(loginEmail, loginPassword)
+
+    }
+
        return(
         <>
            <GlobalStyle/> 
@@ -68,7 +81,7 @@ const Login = (props)=> {
                     <img src={logo} alt="" />
                     <Paragraph color="blue" margin={{all:'3.54rem 0 2rem 0'}}  paragraph="Já tem conta? Faça seu login:"/>
                 </Card>
-                <Form>
+                <Form onSubmit={handleSubimt}>
                     <Input
                         width='312px'  
                         type="email"
@@ -76,6 +89,8 @@ const Login = (props)=> {
                         label="Email"
                         mb='1.25rem'
                         placeholder="Insira seu email"
+                        value = {loginEmail}
+                        onChange = {e => setLoginEmail(e.target.value)}
                     />
 
                     <Input
@@ -84,10 +99,15 @@ const Login = (props)=> {
                         label="Senha"
                         placeholder="Insira sua senha"
                         password
+                        value = {loginPassword}
+                        onChange = {e => setLoginPassword(e.target.value)}
                     />
                     <Link to="/register"><Span>Esqueci minha senha.</Span></Link> 
-                  
-                    <Button marginTop="1.5rem">Cadastar</Button>
+
+                    {!isPending && <Button marginTop="1.5rem" >Entrar</Button>}
+                    
+                    {isPending && <Button marginTop="1.5rem" disabled>Entrando</Button>}
+                    {error && <p>{error}</p>}
                 </Form>
             <Footer/>
         </>

@@ -3,7 +3,6 @@ import { theme } from "./layout/themes/theme";
 import { GlobalStyle } from "./layout/themes/Global";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import {Register, Initial, Login, Home, Message, Profile } from "./pages/";
-import { useEffect } from "react";
 
 function App() {
     return (
