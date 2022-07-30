@@ -42,7 +42,7 @@ const Btn = styled.button`
 
 const Button = (props) => {
     return(
-        <Btn marginTop={props.marginTop} margin={props.margin}>{props.children}</Btn>
+        <Btn onClick={props.onClick} marginTop={props.marginTop} margin={props.margin}>{props.children}</Btn>
     )
 
 

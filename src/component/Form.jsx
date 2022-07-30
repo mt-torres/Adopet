@@ -36,7 +36,7 @@ const FormStyled = styled.form`
 const Form = (props) => {
     return(
         <>
-            <FormStyled 
+            <FormStyled  onSubmit={props.onSubmit}
                 margin={props.margin}
                 padding={props.padding}
                 color={props.color}>

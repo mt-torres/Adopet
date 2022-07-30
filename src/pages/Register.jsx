@@ -8,6 +8,13 @@ import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
 import PatasTablet from '../layout/images/PatasTablet.svg'
 import PatasDesktop from '../layout/images/PatasDesktop.svg';
+import { useState } from "react"
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
+import { auth, db } from "../database/Firebase"
+import { addDoc, collection } from "firebase/firestore"
+import { useSignup } from "../hooks/useSignup"
+
+
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -41,6 +48,36 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Register = (props)=> {
+
+    const [registerEmail, setRegisterEmail] = useState('');
+    const [registerPassword, setRegisterPassword] = useState('');
+    const [userName, setUserName] = useState('');
+    const userCollectionRef = collection(db,'users')
+
+    const {signup, isPending, error } = useSignup() 
+
+    const handleSubimt = (e) =>{
+        e.preventDefault()
+        signup(registerEmail, registerPassword, userName )
+
+    }
+
+   /*  const createUser = async () =>{
+        if(auth.currentUser){
+            console.log("erro")
+    }else{
+        console.log(auth.currentUser)
+        console.log('foi')
+        const user = await addDoc(userCollectionRef,{
+            userName,
+            registerEmail
+        })
+    }
+
+      
+    } */
+
+
        return(
         <>
            <GlobalStyle/> 
@@ -50,7 +87,7 @@ const Register = (props)=> {
                     <Paragraph color="blue" margin={{all:'1.5rem 0 0.5rem'}} paragraph="Ainda não tem cadastro?"/>
                     <Paragraph color="blue"padding='0 1rem' margin={{all:'0 0 1rem 0'}} paragraph="Então, antes de buscar seu melhor amigo, precisamos de alguns dados:"/>
                 </Card>
-                <Form padding={{All: '0 0 4rem 0'}}>
+                <Form padding={{All: '0 0 4rem 0'}} onSubmit={handleSubimt}>
                     <Input
                         width='312px'
                         type="email"
@@ -58,13 +95,16 @@ const Register = (props)=> {
                         label="Email"
                         mb='1.25rem'
                         placeholder="Escolha seu melhor email"
+                        onChange={(e)=> setRegisterEmail(e.target.value)}
                     />
                     <Input
+                        value={userName}
                         width='312px'  
                         id="Nome"
                         label="Nome"
                         mb='1.25rem'
                         placeholder="Digite seu nome completo"
+                        onChange={(e)=> setUserName(e.target.value)}
                     />
                     <Input
                         type="password"
@@ -73,6 +113,7 @@ const Register = (props)=> {
                         mb='1.25rem'
                         placeholder="Crie sua senha"
                         password
+                        onChange={(e)=> {setRegisterPassword(e.target.value); console.log(registerPassword)}}
                     />
                     <Input
                         type="password"
@@ -81,7 +122,10 @@ const Register = (props)=> {
                         placeholder="Repite a senha criada acima"
                         password
                     />
-                    <Button marginTop="1.5rem">Cadastar</Button>
+                    {!isPending && <Button marginTop="1.5rem" >Cadastar</Button>}
+                    
+                    {isPending && <Button marginTop="1.5rem" disabled>Loading</Button>}
+                    {error && <p>{error}</p>}
                 </Form>
             <Footer/>
         </>
