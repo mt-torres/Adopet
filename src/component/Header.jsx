@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import logo from '../layout/images/Logos-02.png'
 import house from '../layout/images/Casa.png'
 import message from '../layout/images/Mensagens.png'
-import user from '../layout/images/Usuario.png'
+import userPhoto from '../layout/images/Usuario.png'
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function handleImg({type}){
     if(type==='logo'){
@@ -90,13 +91,21 @@ const Img = styled.img`
     
 
 const Header = (props) => {
+
+    const {user} = useAuthContext()
+    console.log(user)
+
     return(
         <Container>
             <Ul>
+                {user && (
+                    <li>Olá, {user.displayName}</li>
+
+                )}
                 <li><Img type="logo"  src={logo} alt="" /></li>
                 <li><Img type="house" src={house} alt="" /></li>
                 <li><Img type="message" src={message} alt="" /></li>
-                <li><Img type="user" user={props.user} src={user} alt="" /></li>
+                <li><Img type="user" user={props.user} src={userPhoto} alt="" /></li>
                 
             </Ul>
         </Container>

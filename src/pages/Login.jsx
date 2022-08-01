@@ -11,6 +11,7 @@ import PatasDesktop from '../layout/images/PatasDesktop.svg'
 import { Link } from "react-router-dom"
 import { useLogin } from "../hooks/useLogin"
 import { useState } from "react"
+import { useLogout } from "../hooks/useLogout"
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -66,6 +67,7 @@ const Login = (props)=> {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const {login, error, isPending} = useLogin()
+    const {logout, error1, isPending1} = useLogout()
 
     const handleSubimt = (e) =>{
         e.preventDefault()
@@ -109,6 +111,7 @@ const Login = (props)=> {
                     {isPending && <Button marginTop="1.5rem" disabled>Entrando</Button>}
                     {error && <p>{error}</p>}
                 </Form>
+                <Button marginTop="1.5rem" onClick={logout}>logout</Button>
             <Footer/>
         </>
         

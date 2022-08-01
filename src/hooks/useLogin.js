@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../database/Firebase";
 import { useAuthContext } from "./useAuthContext";
@@ -16,9 +16,12 @@ export const useLogin = () => {
 
         try{
             const res = await signInWithEmailAndPassword(auth,email, password)
+            
 
             // dispatch login action
-            dispatch({ type: 'LOGIN', payload: res.user }) 
+            dispatch({ type: 'LOGIN', payload: res.user })
+
+                     
             setIsPending(false);
             setError(null)
             //update state

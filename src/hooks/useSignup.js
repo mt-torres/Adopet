@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react"
 import { auth } from "../database/Firebase";
 import { useAuthContext } from "./useAuthContext";
@@ -21,11 +21,20 @@ export const useSignup = () => {
             throw new Error("Could not complete this task")
            }
 
-           //add display name
+          
+                //add display name
+            if(response !== null){
+              updateProfile(auth.currentUser, { displayName })
+
+            } 
+
+
+    
+       /*     //add display name
            if(response !== null){
              auth.currentUser.displayName = displayName
 
-           }
+           } */
 
            //dispatch	login action
            dispatch({ type: 'LOGIN', payload: response.user })
