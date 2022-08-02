@@ -8,10 +8,11 @@ import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
 import PatasTablet from '../layout/images/PatasTablet.svg'
 import PatasDesktop from '../layout/images/PatasDesktop.svg'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useLogin } from "../hooks/useLogin"
 import { useState } from "react"
-import { useLogout } from "../hooks/useLogout"
+import { useAuthContext } from "../hooks/useAuthContext";
+
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -66,12 +67,19 @@ const Login = (props)=> {
 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
-    const {login, error, isPending} = useLogin()
-    const {logout, error1, isPending1} = useLogout()
+    const {login, error, isPending} = useLogin();
+    const user  = useAuthContext()
+
+
+
+    console.log(user)    
+    let navigate = useNavigate();
 
     const handleSubimt = (e) =>{
         e.preventDefault()
         login(loginEmail, loginPassword)
+        
+       //if (user) {navigate('/home',{replace: true} )}
 
     }
 
@@ -111,7 +119,6 @@ const Login = (props)=> {
                     {isPending && <Button marginTop="1.5rem" disabled>Entrando</Button>}
                     {error && <p>{error}</p>}
                 </Form>
-                <Button marginTop="1.5rem" onClick={logout}>logout</Button>
             <Footer/>
         </>
         

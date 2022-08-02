@@ -5,6 +5,8 @@ import house from '../layout/images/Casa.png'
 import message from '../layout/images/Mensagens.png'
 import userPhoto from '../layout/images/Usuario.png'
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Button } from "./Button";
+import { useLogout } from "../hooks/useLogout";
 
 function handleImg({type}){
     if(type==='logo'){
@@ -42,6 +44,7 @@ const Container = styled.header`
     box-sizing:border-box;  
     margin:0 49.5px;
     padding-top: 40px;
+    
   
     
 `
@@ -88,9 +91,10 @@ const Img = styled.img`
 
    
  `   
-    
+
 
 const Header = (props) => {
+    const { logout } = useLogout();
 
     const {user} = useAuthContext()
     console.log(user)
@@ -98,16 +102,19 @@ const Header = (props) => {
     return(
         <Container>
             <Ul>
+              
+                <li><Img type="logo"  src={logo} alt="" /></li>
+                <li><Img type="house" src={house} alt="" /></li>
+                <li><Img type="message" src={message} alt="" /></li>
                 {user && (
                     <li>Olá, {user.displayName}</li>
 
                 )}
-                <li><Img type="logo"  src={logo} alt="" /></li>
-                <li><Img type="house" src={house} alt="" /></li>
-                <li><Img type="message" src={message} alt="" /></li>
+                <Button onClick={logout}>Sair</Button>   
                 <li><Img type="user" user={props.user} src={userPhoto} alt="" /></li>
                 
             </Ul>
+            
         </Container>
     )
 
