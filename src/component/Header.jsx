@@ -5,8 +5,10 @@ import house from '../layout/images/Casa.png'
 import message from '../layout/images/Mensagens.png'
 import userPhoto from '../layout/images/Usuario.png'
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Button } from "./Button";
 import { useLogout } from "../hooks/useLogout";
+import { useState } from "react";
+import { DropdownMenu } from "./DropdownMenu";
+import { Link } from "react-router-dom";
 
 function handleImg({type}){
     if(type==='logo'){
@@ -35,6 +37,7 @@ function handleImg({type}){
         width: 48px;
         top:0;
         right:0;
+        cursor: pointer;
        
        `
     }
@@ -95,28 +98,38 @@ const Img = styled.img`
 
 const Header = (props) => {
     const { logout } = useLogout();
+    let [isOverButton, setIsOverButton] = useState(false);
 
     const {user} = useAuthContext()
-    console.log(user)
 
-    return(
-        <Container>
-            <Ul>
-              
-                <li><Img type="logo"  src={logo} alt="" /></li>
-                <li><Img type="house" src={house} alt="" /></li>
-                <li><Img type="message" src={message} alt="" /></li>
-                {user && (
-                    <li>Olá, {user.displayName}</li>
 
-                )}
-                <Button onClick={logout}>Sair</Button>   
-                <li><Img type="user" user={props.user} src={userPhoto} alt="" /></li>
-                
-            </Ul>
-            
-        </Container>
-    )
+    return (
+		<Container>
+			<Ul>
+                <li><Img type="logo" src={logo} alt="" /></li>
+                <Link to="/home"><li><Img type="house" src={house} alt="" /></li></Link>
+                <Link to="/message"><li><Img type="message" src={message} alt="" /></li></Link>
+				{user && <li>Olá, {user.displayName}</li>}
+
+				<li>
+					<Img
+						onMouseLeave={() => setIsOverButton(false)}
+						onMouseEnter={() => setIsOverButton(true)}
+						type="user"
+						user={props.user}
+						src={userPhoto}
+						alt=""
+					/>
+				</li>
+				<DropdownMenu
+					transition={isOverButton}
+					onClick={logout}
+					onMouseLeave={() => setIsOverButton(false)}
+					onMouseEnter={() => setIsOverButton(true)}
+				/>
+			</Ul>
+		</Container>
+	);
 
 
 }
