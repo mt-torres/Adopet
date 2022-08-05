@@ -4,6 +4,9 @@ import curvaTop from '../layout/images/Group2.svg'
 import Foto from "../layout/images/cracha.png"
 import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
+import { useState } from "react"
+import { useFirestore } from "../hooks/useFirestore"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -50,6 +53,34 @@ const H1 = styled.h1`
 `
 
 const Profile = (props)=> {
+    const { user } = useAuthContext()
+
+    const [name, setName] = useState('');
+    const [ phone, setPhone] = useState('');
+    const [ city, setCity] = useState('');
+    const [ about, setAbout]  = useState('');
+    const { addDocument, response } = useFirestore('userProfile')
+
+
+
+    const data ={
+        uid: user.uid,
+        name,
+        phone,
+        city,
+        about,
+
+    }
+
+
+    const handleSubimt = (e) =>{
+        e.preventDefault()
+        addDocument(data)
+         console.log(data)
+        
+
+    }
+
        return(
         <>
            <GlobalStyle/> 
@@ -57,10 +88,12 @@ const Profile = (props)=> {
                 <Card>
                     <Paragraph color="blue" margin={{all:'0'}} paragraph="Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."/>
                 </Card>
-                <Form color padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
+                <Form onSubmit={handleSubimt} color padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
                     <H1>Perfil</H1>
                     <CardPerfil photo={Foto}/>
                     <Input
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                         optional
                         width='280px'
                         mb='.9rem'
@@ -69,6 +102,8 @@ const Profile = (props)=> {
                         
                     />
                     <Input
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
                         optional
                         width='280px'
                         mb='1rem'
@@ -77,6 +112,8 @@ const Profile = (props)=> {
                         
                     />
                     <Input
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
                         optional
                         width='280px'
                         mb='1rem'
@@ -85,14 +122,15 @@ const Profile = (props)=> {
                         
                     />
                     <Input
+                        value={about}
+                        onChange={e => setAbout(e.target.value)}
                         message
                         optional
                         width='280px'
                         mb='1rem'
                         id='sobre'
                         label="Sobre"
-                        placeholder="Por qual animal você se interessou?"
-                    />
+                     />
                     <Button margin='1rem' marginTop='2rem'>Salvar</Button>
                 </Form >
             <Footer fixed/>

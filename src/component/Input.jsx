@@ -94,11 +94,14 @@ const Input = (props) => {
 			<ContainerPassword>
                 {props.message?
                  <Textarea
+                    value={props.value}
+                    onChange={props.onChange}
                     optional={props.optional}
                     width={props.width}
                  ></Textarea>
                  
                 :   <InputStyled
+                        value={props.value}
                         onChange={props.onChange}
                         optional={props.optional}
                         width={props.width}

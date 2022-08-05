@@ -19,7 +19,6 @@ const Ul = styled.ul`
    transition: all .3s linear; 
    background-color:rgba(54,214,173, 0);
    background-color:${p => p.transition && 'rgba(54,214,173,0.8)'};
-   ${p => console.log(p.transition)};
    height:0;
    height:${p => p.transition && '70px'};
 
@@ -35,7 +34,7 @@ const Li = styled.li`
 `
 
 const DropdownMenu = (props)=>{
-    console.log(props.transition)
+   
     return(
         <>  
         <Container transition={props.transition} onMouseLeave={props.onMouseLeave}  onMouseEnter={props.onMouseEnter}>
