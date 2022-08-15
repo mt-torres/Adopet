@@ -20,8 +20,8 @@ function App() {
 						<Route path="/register" element={user? <Navigate  to="/home"/> :<Register />} />
 						<Route path="/login" element={user? <Navigate  to="/home"/> :<Login />} />
 						<Route path="/home" element={user? <Home /> : <Navigate  to="/"/> } />
-						<Route path="/message" element={<Message />} />
-						<Route path="/profile" element={<Profile />} />
+						<Route path="/message" element={user? <Message />:<Navigate  to="/"/> } />
+						<Route path="/profile" element={user? <Profile />:<Navigate  to="/"/> } />
 					</Routes>
 
 					)}

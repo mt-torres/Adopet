@@ -4,9 +4,11 @@ import curvaTop from '../layout/images/Group2.svg'
 import Foto from "../layout/images/cracha.png"
 import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
-import { useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { useFirestore } from "../hooks/useFirestore"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { collection, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore"
+import { db } from "../database/Firebase"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -52,19 +54,102 @@ const H1 = styled.h1`
 
 `
 
-const Profile = (props)=> {
-    const { user } = useAuthContext()
+const initialState = {userData:''};
 
-    const [name, setName] = useState('');
+function reducer(state, action) {
+  switch (action.type) {
+    case 'FETCHED':
+      return {...state, userData: action.payload};
+    default:
+      throw new Error();
+  }
+}
+
+const Profile = (props)=> {
+    const [userProfile, dispatch] = useReducer(reducer, initialState);
+    const {userData} = userProfile;
+    const { user } = useAuthContext();
+    const [name, setName] = useState();
     const [ phone, setPhone] = useState('');
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
-    const { addDocument, response } = useFirestore('userProfile')
+    const { addDocument, response } = useFirestore('userProfile');
+    console.log(userProfile);
+    console.log('usestate: ',name);
+    console.log('userProfile: ',userData);
+    console.log('usestate: ',name);
+
+  /*   useEffect( () =>{
+
+        let ref = collection(db, 'userProfile');
+        ref = query(ref, where('uid' ,'==', user.uid))
+        
+      
+        getDocs(ref).then( snapshot =>{
+            console.log(snapshot.docs)
+            setName(snapshot.docs[0]._document.data.value.mapValue.fields.name.stringValue)
+            setPhone(snapshot.docs[0]._document.data.value.mapValue.fields.phone.stringValue)
+            setCity(snapshot.docs[0]._document.data.value.mapValue.fields.city.stringValue)
+            setAbout(snapshot.docs[0]._document.data.value.mapValue.fields.about.stringValue)
+        })
+        
+    },[]) */
+    
+
+
+/*     useEffect( () =>{
+
+        let ref = collection(db, 'userProfile');
+        ref = query(ref, where('uid' ,'==', user.uid))
+        
+      
+        getDocs(ref).then( snapshot =>{
+            snapshot.docs.forEach(doc => {
+                const data = doc._document.data.value.mapValue.fields
+               
+                setName(data.name.stringValue)
+                setPhone(data.phone.stringValue)
+                setCity(data.city.stringValue)
+                setAbout(data.about.stringValue)
+
+            })
+        })
+        
+    },[]) */
+
+   
+
+     useEffect( () =>{
+
+        const getUserProfile = async () =>{
+            let ref = collection(db, 'userProfile');
+            ref = query(ref, where('uid' ,'==', user.uid))
+            const data = await getDocs(ref);
+            const teste = (data.docs.map( doc =>({...doc.data(), id:doc.id } )))
+            const name = await teste[0].name
+            console.log(name)
+            dispatch({type:'FETCHED', payload:name}) 
+              
+        }
+        
+        getUserProfile()
+        
+       
+        
+    
+    },[]); 
+
+    useEffect(()=> {
+           setName(userData)
 
 
 
+    },[userData])
+
+
+    
     const data ={
-        uid: user.uid,
+        uid: user && user.uid,
         name,
         phone,
         city,

@@ -40,7 +40,8 @@ export const useFirestore = (collectionDb) => {
     }
  
     // add a document
-    const addDocument = async (doc) => {
+    const addDocument = async (doc ) => {
+
         dispatch({ type: 'IS_PENDING' })
 
         try{ 
