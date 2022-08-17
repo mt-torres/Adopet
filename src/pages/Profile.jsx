@@ -7,7 +7,7 @@ import Forma2TD from '../layout/images/Forma2TD.svg'
 import { useEffect, useReducer, useState } from "react"
 import { useFirestore } from "../hooks/useFirestore"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { collection, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore"
+import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
 import { db } from "../database/Firebase"
 
 
@@ -49,9 +49,6 @@ const H1 = styled.h1`
     font-size: 1.4rem;
     font-weight: 600;
     color:${p => p.theme.fontColor2};
-
-    
-
 `
 
 const initialState = {userData:''};
@@ -66,86 +63,45 @@ function reducer(state, action) {
 }
 
 const Profile = (props)=> {
+    const { user } = useAuthContext();
     const [userProfile, dispatch] = useReducer(reducer, initialState);
     const {userData} = userProfile;
-    const { user } = useAuthContext();
-    const [name, setName] = useState();
+    const [name, setName] = useState('');
     const [ phone, setPhone] = useState('');
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
     const { addDocument, response } = useFirestore('userProfile');
-    console.log(userProfile);
-    console.log('usestate: ',name);
-    console.log('userProfile: ',userData);
-    console.log('usestate: ',name);
 
-  /*   useEffect( () =>{
+    const updateUser = async (id, name) => {
+        const userDoc = doc(db, "userProfile", id)
+        const newFieilds = {name: name }
+        await updateDoc(userDoc,newFieilds )
 
-        let ref = collection(db, 'userProfile');
-        ref = query(ref, where('uid' ,'==', user.uid))
-        
-      
-        getDocs(ref).then( snapshot =>{
-            console.log(snapshot.docs)
-            setName(snapshot.docs[0]._document.data.value.mapValue.fields.name.stringValue)
-            setPhone(snapshot.docs[0]._document.data.value.mapValue.fields.phone.stringValue)
-            setCity(snapshot.docs[0]._document.data.value.mapValue.fields.city.stringValue)
-            setAbout(snapshot.docs[0]._document.data.value.mapValue.fields.about.stringValue)
-        })
-        
-    },[]) */
-    
-
-
-/*     useEffect( () =>{
-
-        let ref = collection(db, 'userProfile');
-        ref = query(ref, where('uid' ,'==', user.uid))
-        
-      
-        getDocs(ref).then( snapshot =>{
-            snapshot.docs.forEach(doc => {
-                const data = doc._document.data.value.mapValue.fields
-               
-                setName(data.name.stringValue)
-                setPhone(data.phone.stringValue)
-                setCity(data.city.stringValue)
-                setAbout(data.about.stringValue)
-
-            })
-        })
-        
-    },[]) */
-
-   
-
+    }
+  
      useEffect( () =>{
 
         const getUserProfile = async () =>{
             let ref = collection(db, 'userProfile');
             ref = query(ref, where('uid' ,'==', user.uid))
             const data = await getDocs(ref);
-            const teste = (data.docs.map( doc =>({...doc.data(), id:doc.id } )))
-            const name = await teste[0].name
-            console.log(name)
-            dispatch({type:'FETCHED', payload:name}) 
+            const dataArray = (data.docs.map( doc =>({...doc.data(), id:doc.id } )))
+            const userDetails = dataArray[0]
+            dispatch({type:'FETCHED', payload:userDetails}) 
               
         }
         
-        getUserProfile()
-        
+        getUserProfile()      
        
-        
-    
-    },[]); 
+    },[user.uid]); 
 
-    useEffect(()=> {
-           setName(userData)
-
-
+    useEffect( () =>{
+        setName(userData.name)
+        setPhone(userData.phone)
+        setCity(userData.city)
+        setAbout(userData.about)
 
     },[userData])
-
 
     
     const data ={
@@ -171,13 +127,13 @@ const Profile = (props)=> {
            <GlobalStyle/> 
             <Header />  
                 <Card>
-                    <Paragraph color="blue" margin={{all:'0'}} paragraph="Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."/>
+                    <Paragraph color= "blue" margin={{all:'0'}} paragraph="Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."/>
                 </Card>
-                <Form onSubmit={handleSubimt} color padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
+                <Form /* onSubmit={handleSubimt} */ color='' padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
                     <H1>Perfil</H1>
                     <CardPerfil photo={Foto}/>
                     <Input
-                        value={name}
+                        value={name || ''}
                         onChange={e => setName(e.target.value)}
                         optional
                         width='280px'
@@ -186,8 +142,9 @@ const Profile = (props)=> {
                         label="Nome"
                         
                     />
+                    <Button onClick={()=> {updateUser(userData.id, name )}}>update</Button>
                     <Input
-                        value={phone}
+                        value={phone || ''}
                         onChange={e => setPhone(e.target.value)}
                         optional
                         width='280px'
@@ -197,11 +154,11 @@ const Profile = (props)=> {
                         
                     />
                     <Input
-                        value={city}
+                        value={city || ''}
                         onChange={e => setCity(e.target.value)}
                         optional
                         width='280px'
-                        mb='1rem'
+                        mb='1rem'        
                         id='cidade'
                         label="Cidade"
                         
