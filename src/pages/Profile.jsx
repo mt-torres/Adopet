@@ -9,6 +9,8 @@ import { useFirestore } from "../hooks/useFirestore"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
 import { db } from "../database/Firebase"
+import { useLoad } from "../hooks/useLoad"
+import { updateUser } from "../hooks/useUpdate"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -51,49 +53,18 @@ const H1 = styled.h1`
     color:${p => p.theme.fontColor2};
 `
 
-const initialState = {userData:''};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'FETCHED':
-      return {...state, userData: action.payload};
-    default:
-      throw new Error();
-  }
-}
 
 const Profile = (props)=> {
     const { user } = useAuthContext();
-    const [userProfile, dispatch] = useReducer(reducer, initialState);
-    const {userData} = userProfile;
     const [name, setName] = useState('');
     const [ phone, setPhone] = useState('');
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
     const { addDocument, response } = useFirestore('userProfile');
+    const { userData } = useLoad( db, user);
+    const { updateDetails } = updateUser();
 
-    const updateUser = async (id, name) => {
-        const userDoc = doc(db, "userProfile", id)
-        const newFieilds = {name: name }
-        await updateDoc(userDoc,newFieilds )
 
-    }
-  
-     useEffect( () =>{
-
-        const getUserProfile = async () =>{
-            let ref = collection(db, 'userProfile');
-            ref = query(ref, where('uid' ,'==', user.uid))
-            const data = await getDocs(ref);
-            const dataArray = (data.docs.map( doc =>({...doc.data(), id:doc.id } )))
-            const userDetails = dataArray[0]
-            dispatch({type:'FETCHED', payload:userDetails}) 
-              
-        }
-        
-        getUserProfile()      
-       
-    },[user.uid]); 
 
     useEffect( () =>{
         setName(userData.name)
@@ -102,8 +73,7 @@ const Profile = (props)=> {
         setAbout(userData.about)
 
     },[userData])
-
-    
+        
     const data ={
         uid: user && user.uid,
         name,
@@ -129,7 +99,7 @@ const Profile = (props)=> {
                 <Card>
                     <Paragraph color= "blue" margin={{all:'0'}} paragraph="Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."/>
                 </Card>
-                <Form /* onSubmit={handleSubimt} */ color='' padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
+                <Form onSubmit={handleSubimt}  color='' padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
                     <H1>Perfil</H1>
                     <CardPerfil photo={Foto}/>
                     <Input
@@ -142,7 +112,7 @@ const Profile = (props)=> {
                         label="Nome"
                         
                     />
-                    <Button onClick={()=> {updateUser(userData.id, name )}}>update</Button>
+                    <Button onClick={(e)=> { e.preventDefault(); updateDetails(db, userData.id, {name:name} )}}>update</Button>
                     <Input
                         value={phone || ''}
                         onChange={e => setPhone(e.target.value)}
