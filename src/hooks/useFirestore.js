@@ -30,6 +30,8 @@ export const useFirestore = (collectionDb) => {
     const [response, dispatch] = useReducer(firestoreReducer, initialState);
     const [isCancelled, setIsCancelled] = useState(false);
 
+    console.log('response:',response)
+    console.log('dispatch:',dispatch)
     // dispatch if it is not cancelled
 
     const dispatchIfIsNotCancelled = (action) => {

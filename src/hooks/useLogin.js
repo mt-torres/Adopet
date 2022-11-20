@@ -20,10 +20,10 @@ export const useLogin = () => {
 
             // dispatch login action
             dispatch({ type: 'LOGIN', payload: res.user })
-
                      
             setIsPending(false);
             setError(null)
+
             //update state
             if(!isCancelled){
                 setIsPending(false);
@@ -32,8 +32,26 @@ export const useLogin = () => {
             }
 
         }catch(err){
-            console.log(err.message);
-                setError(err.message);
+            if (err.code){
+                if (err.code === 'auth/wrong-password') {
+                    setError("Senha incorreta")
+               }
+               else if(err.code === 'auth/invalid-email'){
+                setError("O email informado é invalido")
+               }
+               else if(err.code === 'auth/user-not-found'){
+                setError("Usuário não econtrado")
+               }
+               else if(err.code === 'auth/too-many-requests'){
+                setError("Muitas tentativas incorretas, aguarde alguns minutos")
+               }
+               else {
+                setError("Por favor, insira sua senha")
+               }
+           }
+
+            console.log(err.code);
+                //setError(err.message);
                 setIsPending(false);
             if(!isCancelled){
                 console.log(err.message);

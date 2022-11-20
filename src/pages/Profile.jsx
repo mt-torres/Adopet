@@ -60,19 +60,23 @@ const Profile = (props)=> {
     const [ phone, setPhone] = useState('');
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
+    const [ isSubmited, setIsSubmited]  = useState(false);
     const { addDocument, response } = useFirestore('userProfile');
     const { userData } = useLoad( db, user);
     const { updateDetails } = updateUser();
 
 
+    
 
-    useEffect( () =>{
-        setName(userData.name)
-        setPhone(userData.phone)
-        setCity(userData.city)
-        setAbout(userData.about)
-
-    },[userData])
+    useEffect(() => {
+        if (userData) {
+            setName(userData.name);
+            setPhone(userData.phone);
+            setCity(userData.city);
+            setAbout(userData.about);
+        }
+    }, [userData]);
+   
         
     const data ={
         uid: user && user.uid,
@@ -86,8 +90,17 @@ const Profile = (props)=> {
 
     const handleSubimt = (e) =>{
         e.preventDefault()
-        addDocument(data)
-         console.log(data)
+        if(userData){
+            updateDetails(db, userData.id, {name,phone,city,about})
+        
+        }else if(!userData &&!isSubmited ){
+            addDocument(data)
+            setIsSubmited(true)
+            console.log(data)
+            
+  
+
+        }
         
 
     }
@@ -112,7 +125,6 @@ const Profile = (props)=> {
                         label="Nome"
                         
                     />
-                    <Button onClick={(e)=> { e.preventDefault(); updateDetails(db, userData.id, {name:name} )}}>update</Button>
                     <Input
                         value={phone || ''}
                         onChange={e => setPhone(e.target.value)}
@@ -143,7 +155,9 @@ const Profile = (props)=> {
                         id='sobre'
                         label="Sobre"
                      />
-                    <Button margin='1rem' marginTop='2rem'>Salvar</Button>
+                      <p>teste</p>
+                     {!userData&&!isSubmited?<Button margin='1rem' marginTop='2rem'>Salvar</Button>:null}
+                     {userData||isSubmited?<Button margin='1rem' marginTop='2rem'>Atualizar</Button>:null}
                 </Form >
             <Footer fixed/>
         </>

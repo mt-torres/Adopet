@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import eyes from "../layout/images/eyes.svg"
+import { useState } from "react";
+import styled, { css } from "styled-components";
+import hide from "../layout/images/hide.svg"
+import show from "../layout/images/show.svg"
 
 const Container = styled.div`
     display: flex;
@@ -20,7 +22,7 @@ const InputStyled = styled.input`
     width: ${p => p.password?'250px': p.width};
     height:40px;
     box-sizing: border-box;
-    padding: 0.75rem;
+    padding: ${p => p.password?'0.75rem 0.75rem 0.75rem 4.5rem':'0.75rem'};
     text-align: ${p => p.optional? 'left':'center'};
     font-size:14px;
     color:${p => p.theme.inputFontColor};
@@ -49,9 +51,9 @@ const ContainerPassword = styled.div`
 
 const CheckPassword = styled.span`
     display:${p => p.password?'block':'none'};
-    background:url(${eyes}) no-repeat center;
+    background: ${p=> p.showPassword?`url(${hide}) no-repeat center`:`url(${show}) no-repeat center`};
+    background-color:${p => p.theme.inputBgColor};
     width:62px;
-    background-color: ${p => p.theme.inputBgColor};
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -85,6 +87,7 @@ const Textarea = styled.textarea`
 
 
 const Input = (props) => {
+    const [ showPassword, setShowPassword] = useState(false)
 
     return (
 		<Container optional={props.optional} mb={props.mb}>
@@ -106,12 +109,12 @@ const Input = (props) => {
                         optional={props.optional}
                         width={props.width}
                         placeholder={props.placeholder}
-                        type={props.type ? props.type : "text"}
+                        type={showPassword&&props.type==='password'? "text" : props.type}
                         password={props.password}
                         id={props.id}
                     ></InputStyled>
                 }
-				<CheckPassword password={props.password}></CheckPassword>
+				<CheckPassword showPassword={showPassword} onClick={()=>setShowPassword(state=>!state )} password={props.password}></CheckPassword>
 			</ContainerPassword>
 		</Container>
 	);

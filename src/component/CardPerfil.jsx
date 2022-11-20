@@ -22,7 +22,7 @@ const Img = styled.img`
 
 `
 
-const Senha = styled.span`
+const SelectPhoto = styled.input`
     color: ${p => p.theme.buttonColor};
     text-decoration:underline;
     font-size: 0.75rem;
@@ -39,7 +39,8 @@ const CardPerfil = (props)=>{
             <Span>Foto</Span>
             <Container>
                 <Img src={props.photo} alt="" />
-                <Senha>Clique na foto para editar</Senha>
+                <label for="avatar">Clique para editar</label>
+                <SelectPhoto type='file'id="avatar" name="avatar"></SelectPhoto>
             </Container>
         </>
     )  

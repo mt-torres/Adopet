@@ -43,7 +43,9 @@ export const GlobalStyle = createGlobalStyle`
         background-position: top left, top 40% right, left 40% bottom 14%;  
         min-height: 100vh;
 
-        
+        a{
+            text-decoration:none;
+        }
         
         @media(min-width: 768px) {
             background-image: url(${Forma1TD}), url(${Forma2TD}), url(${IlustracaoTablet});

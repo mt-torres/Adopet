@@ -18,7 +18,8 @@ export const useLoad = (db, user) => {
     const [userProfile, dispatch] = useReducer(reducer, initialState);
     const {userData} = userProfile;
 
-   
+    console.log('userProfile:',userProfile)
+
     useEffect( () =>{
 
         const getUserProfile = async () =>{
