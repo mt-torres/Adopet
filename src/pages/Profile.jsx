@@ -4,13 +4,12 @@ import curvaTop from '../layout/images/Group2.svg'
 import Foto from "../layout/images/cracha.png"
 import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
-import { useEffect, useReducer, useState } from "react"
+import { useEffect, useState } from "react"
 import { useFirestore } from "../hooks/useFirestore"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore"
 import { db } from "../database/Firebase"
 import { useLoad } from "../hooks/useLoad"
-import { updateUser } from "../hooks/useUpdate"
+import { Snackbar } from "../component/Snackbar"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -62,11 +61,11 @@ const Profile = (props)=> {
     const [ about, setAbout]  = useState('');
     const [ isSubmited, setIsSubmited]  = useState(false);
     const { addDocument, response } = useFirestore('userProfile');
-    const { userData } = useLoad( db, user);
-    const { updateDetails } = updateUser();
+    const { userData, updateDetails, message, isUpdating, error, showMessage} = useLoad( db, user,{name,phone,city,about});
 
 
-    
+   console.log(message)
+
 
     useEffect(() => {
         if (userData) {
@@ -74,9 +73,11 @@ const Profile = (props)=> {
             setPhone(userData.phone);
             setCity(userData.city);
             setAbout(userData.about);
+
         }
     }, [userData]);
    
+  
         
     const data ={
         uid: user && user.uid,
@@ -91,12 +92,15 @@ const Profile = (props)=> {
     const handleSubimt = (e) =>{
         e.preventDefault()
         if(userData){
-            updateDetails(db, userData.id, {name,phone,city,about})
-        
-        }else if(!userData &&!isSubmited ){
+            updateDetails()
+            console.log(message)
+
+        }else if(!userData &&!isSubmited&&!error ){
             addDocument(data)
             setIsSubmited(true)
-            console.log(data)
+            console.log(message)
+
+
             
   
 
@@ -155,9 +159,9 @@ const Profile = (props)=> {
                         id='sobre'
                         label="Sobre"
                      />
-                      <p>teste</p>
-                     {!userData&&!isSubmited?<Button margin='1rem' marginTop='2rem'>Salvar</Button>:null}
-                     {userData||isSubmited?<Button margin='1rem' marginTop='2rem'>Atualizar</Button>:null}
+                     {!userData&&!isSubmited&&!error?<Button margin='1rem' marginTop='2rem'>Salvar</Button>:null}
+                     {userData||isSubmited||error?<Button margin='1rem' marginTop='2rem'>{isUpdating?'Atualizando...':'Atualizar'}</Button>:null}
+                     <Snackbar error={error} showMessage={showMessage} message={message}/>
                 </Form >
             <Footer fixed/>
         </>

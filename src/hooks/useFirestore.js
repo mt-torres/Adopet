@@ -30,9 +30,7 @@ export const useFirestore = (collectionDb) => {
     const [response, dispatch] = useReducer(firestoreReducer, initialState);
     const [isCancelled, setIsCancelled] = useState(false);
 
-    console.log('response:',response)
-    console.log('dispatch:',dispatch)
-    // dispatch if it is not cancelled
+     // dispatch if it is not cancelled
 
     const dispatchIfIsNotCancelled = (action) => {
         if(!isCancelled){
@@ -50,7 +48,6 @@ export const useFirestore = (collectionDb) => {
             const createdAt = timestamp.fromDate(new Date())
             const addedDocument =  await addDoc(collection(db, collectionDb), {...doc, createdAt} );
             dispatchIfIsNotCancelled({type:'ADDED_DOCUMENT', payload: addedDocument})
-
         }catch(err){
             dispatchIfIsNotCancelled({type:'ERROR', payload: err.message })
 

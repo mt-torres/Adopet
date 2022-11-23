@@ -1,5 +1,5 @@
-import { doc, updateDoc } from "firebase/firestore"
-import { useState } from "react"
+/* import { doc, updateDoc } from "firebase/firestore"
+
 
 export const updateUser  = () => {
 
@@ -17,4 +17,4 @@ export const updateUser  = () => {
     }
 
     return { updateDetails }
-}
+} */

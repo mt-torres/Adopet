@@ -4,6 +4,7 @@ import curvaTop from '../layout/images/Group2.svg'
 import dunga from "../layout/images/Dunga.svg"
 import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
+import { Snackbar } from "../component/Snackbar"
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -109,6 +110,7 @@ const Home = (props) => {
                     cidade="Sorocaba (SP)"
                 />
             </ContainerPet>
+            <Snackbar/>
 			<Footer fixed />
 		</>
 	);
