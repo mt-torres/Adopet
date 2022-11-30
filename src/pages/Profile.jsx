@@ -10,6 +10,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import { db } from "../database/Firebase"
 import { useLoad } from "../hooks/useLoad"
 import { Snackbar } from "../component/Snackbar"
+import { useMessageContext } from "../hooks/useMessageContext"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -60,13 +61,11 @@ const Profile = (props)=> {
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
     const [ isSubmited, setIsSubmited]  = useState(false);
-    const { addDocument, response } = useFirestore('userProfile');
-    const { userData, updateDetails, message, isUpdating, error, showMessage} = useLoad( db, user,{name,phone,city,about});
+    const { addDocument } = useFirestore('userProfile');
+    const { userData, updateDetails, isUpdating,} = useLoad( db, user,{name,phone,city,about});
+    const  {message, show, error} = useMessageContext()
 
-
-   console.log(message)
-
-
+   
     useEffect(() => {
         if (userData) {
             setName(userData.name);
@@ -91,22 +90,19 @@ const Profile = (props)=> {
 
     const handleSubimt = (e) =>{
         e.preventDefault()
-        if(userData){
+        if(userData||isSubmited){
             updateDetails()
             console.log(message)
+            console.log('isSubmited',isSubmited)
+
 
         }else if(!userData &&!isSubmited&&!error ){
             addDocument(data)
             setIsSubmited(true)
             console.log(message)
-
-
-            
-  
+            console.log('isSubmited',isSubmited)
 
         }
-        
-
     }
 
        return(
@@ -161,7 +157,7 @@ const Profile = (props)=> {
                      />
                      {!userData&&!isSubmited&&!error?<Button margin='1rem' marginTop='2rem'>Salvar</Button>:null}
                      {userData||isSubmited||error?<Button margin='1rem' marginTop='2rem'>{isUpdating?'Atualizando...':'Atualizar'}</Button>:null}
-                     <Snackbar error={error} showMessage={showMessage} message={message}/>
+                     {<Snackbar error={error} showMessage={show} message={message}/>}
                 </Form >
             <Footer fixed/>
         </>

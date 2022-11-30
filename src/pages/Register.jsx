@@ -9,9 +9,6 @@ import Forma2TD from '../layout/images/Forma2TD.svg'
 import PatasTablet from '../layout/images/PatasTablet.svg'
 import PatasDesktop from '../layout/images/PatasDesktop.svg';
 import { useState } from "react"
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
-import { auth, db } from "../database/Firebase"
-import { addDoc, collection } from "firebase/firestore"
 import { useSignup } from "../hooks/useSignup"
 
 

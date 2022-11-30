@@ -1,6 +1,7 @@
 import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useReducer } from "react";
+import { useMessageContext } from "./useMessageContext";
 
 
 const initialState = {
@@ -28,9 +29,14 @@ export const useLoad = (db, user, value) => {
     const {userData, message, error} = userProfile;
     const [isUpdating, setIsUpdating] = useState(false);
     const [ showMessage, setShowMessage] = useState(false)
+    const {handleMessage} = useMessageContext(message, showMessage, setShowMessage, error )
+    
+    useEffect(()=>{
+      handleMessage()
+     
+    },[showMessage])
 
 
-    console.log('userData',userData)
     useEffect( () =>{
         try{
           const getUserProfile = async () =>{
@@ -39,8 +45,7 @@ export const useLoad = (db, user, value) => {
             const data = await getDocs(ref);
             const dataArray = (data.docs.map( doc =>({...doc.data(), id:doc.id } )))
             const userDetails = dataArray[0]
-            dispatch({type:'FETCHED', user:userDetails, message:'Dados carregados com sucesso' }) 
-            console.log('foi')
+            dispatch({type:'FETCHED', user:userDetails, message:'' }) 
 
         }
         
@@ -60,32 +65,23 @@ export const useLoad = (db, user, value) => {
               const userDoc = doc(db, "userProfile", userData.id)
               const newFields = value
               await updateDoc(userDoc, newFields )
-              console.log(newFields)
               dispatch({type:'UPDATED', user:userData, message:'Dados atualizados com sucesso'})
-               
+            
               setIsUpdating(true)
               setShowMessage(true)
-              setTimeout(()=>{
-                  setShowMessage(false)
-      
-              },3000)     
-      
+        
 
           }catch(err){
               dispatch({type:'ERROR',payload:'Ocorreu um erro, tente novamente'}) 
               setShowMessage(true)
-              setTimeout(()=>{
-                  setShowMessage(false)
+           
       
-              },5000)     
-      
-
           }
          
           setIsUpdating(false)
 
     }
   
-    return{ userData, message, updateDetails, isUpdating, error, showMessage}
+    return{ userData, updateDetails, isUpdating, }
    
 }
