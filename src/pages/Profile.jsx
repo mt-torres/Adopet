@@ -7,8 +7,6 @@ import Forma2TD from '../layout/images/Forma2TD.svg'
 import { useEffect, useState } from "react"
 import { useFirestore } from "../hooks/useFirestore"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { db } from "../database/Firebase"
-import { useLoad } from "../hooks/useLoad"
 import { Snackbar } from "../component/Snackbar"
 import { useMessageContext } from "../hooks/useMessageContext"
 
@@ -61,10 +59,8 @@ const Profile = (props)=> {
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
     const [ isSubmited, setIsSubmited]  = useState(false);
-    const { addDocument } = useFirestore('userProfile');
-    const { userData, updateDetails, isUpdating,} = useLoad( db, user,{name,phone,city,about});
-    const  {message, show, error} = useMessageContext()
-
+    const { addDocument, userData, updateDetails, isUpdating } = useFirestore('userProfile', user);
+    const  {message, show, error, messageType} = useMessageContext()
    
     useEffect(() => {
         if (userData) {
@@ -72,6 +68,8 @@ const Profile = (props)=> {
             setPhone(userData.phone);
             setCity(userData.city);
             setAbout(userData.about);
+
+            console.log(userData)
 
         }
     }, [userData]);
@@ -91,7 +89,7 @@ const Profile = (props)=> {
     const handleSubimt = (e) =>{
         e.preventDefault()
         if(userData||isSubmited){
-            updateDetails()
+            updateDetails({name,phone,city,about})
             console.log(message)
             console.log('isSubmited',isSubmited)
 
@@ -101,6 +99,8 @@ const Profile = (props)=> {
             setIsSubmited(true)
             console.log(message)
             console.log('isSubmited',isSubmited)
+            console.log(data)
+
 
         }
     }
@@ -157,7 +157,7 @@ const Profile = (props)=> {
                      />
                      {!userData&&!isSubmited&&!error?<Button margin='1rem' marginTop='2rem'>Salvar</Button>:null}
                      {userData||isSubmited||error?<Button margin='1rem' marginTop='2rem'>{isUpdating?'Atualizando...':'Atualizar'}</Button>:null}
-                     {<Snackbar error={error} showMessage={show} message={message}/>}
+                     {<Snackbar error={error} messageType={messageType} showMessage={show} message={message}/>}
                 </Form >
             <Footer fixed/>
         </>

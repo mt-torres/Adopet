@@ -34,7 +34,7 @@ export const useLoad = (db, user, value) => {
     useEffect(()=>{
       handleMessage()
      
-    },[showMessage])
+    },[handleMessage])
 
 
     useEffect( () =>{
@@ -55,7 +55,7 @@ export const useLoad = (db, user, value) => {
         }
          
        
-    },[user.uid]); 
+    },[user.uid,db]); 
 
    
     const updateDetails = async () => {
@@ -72,7 +72,7 @@ export const useLoad = (db, user, value) => {
         
 
           }catch(err){
-              dispatch({type:'ERROR',payload:'Ocorreu um erro, tente novamente'}) 
+              dispatch({type:'ERROR',payload:'Ocorreu um erro, tente novamentedfg'}) 
               setShowMessage(true)
            
       

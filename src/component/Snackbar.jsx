@@ -1,10 +1,26 @@
 import styled, { css } from "styled-components";
 import success from "../layout/images/success.svg";
 import errorIcon from "../layout/images/error.svg";
+import alertIcon from "../layout/images/alert.svg";
 
 
 const Container = styled.div`
-    background-color:${p =>p.error?'rgba(207, 83, 61, 0.8)':'rgba(76, 175, 80, 0.8)'};
+    ${p=>{
+        if(p.messageType==='error'){
+            return css`
+                background-color: rgba(207, 83, 61, 0.8);
+             `
+        }else if(p.messageType==='alert'){
+         
+            return css`
+                background-color: rgba(231, 191, 13, 0.8);
+            `
+        }else{
+            return css`
+                background-color: rgba(76, 175, 80, 0.8);
+            `
+        }
+    }}
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     padding:.8rem;
     border-radius:10px ;
@@ -36,7 +52,23 @@ const P = styled.p`
     ::before{
         //24px
         content:'';
-        background: ${p =>p.error?`url(${errorIcon})`:`url(${success})`};
+        ${p=>{
+        if(p.messageType==='error'){
+            return css`
+                 background: url(${errorIcon});
+             `
+        }else if(p.messageType==='alert'){
+         
+            return css`
+                 background: url(${alertIcon});
+            `
+        }else{
+            return css`
+                 background: url(${success});
+            `
+        }
+    }}
+        //background: ${p =>p.error?`url(${errorIcon})`:`url(${success})`};
         width:24px;
         height:24px;
         margin-right:.2rem;
@@ -46,9 +78,10 @@ const P = styled.p`
 `
 
 const Snackbar = (props) => {
+    
     return(
-        <Container error={props.error} showMessage={props.showMessage}>
-            <P error={props.error}>{props.message}</P>
+        <Container error={props.error} messageType={props.messageType} showMessage={props.showMessage}>
+            <P messageType={props.messageType} error={props.error}>{props.message}</P>
         </Container>
 
 

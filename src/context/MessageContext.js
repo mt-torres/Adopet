@@ -7,7 +7,7 @@ export const messageReducer = (state, action) => {
 
     switch(action.type){
         case 'SHOW':
-            return { ...state, message: action.payload, show:true, error:action.error}
+            return { ...state, message: action.payload, show:true, error:action.error, messageType:action.messageType}
         case 'HIDE':
                 return { ...state, message: '', show:false }
         default:
@@ -23,6 +23,7 @@ export const MessageProvider = ({children}) =>{
         message: '',
         show: false,
         error:false,
+        messageType:'',
     })
 
     

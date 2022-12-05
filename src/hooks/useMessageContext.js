@@ -1,14 +1,14 @@
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import { MessageContext } from "../context/MessageContext"
 
-export const useMessageContext = (DisplayMessage, isShow, setShowMessage, isError) => {
-    const {dispatch, message, show, error} = useContext(MessageContext)
+export const useMessageContext = (DisplayMessage, isShow, setShowMessage, isError, messageTypeDysplay) => {
+    const {dispatch, message, show, error, messageType} = useContext(MessageContext)
 
-    const handleMessage = () =>{
+    const handleMessage = useCallback(() =>{
 
         if(DisplayMessage&&isShow) {
 
-            dispatch({type:'SHOW', payload: DisplayMessage, error:isError}) 
+            dispatch({type:'SHOW', payload: DisplayMessage, error:isError, messageType:messageTypeDysplay }) 
             
             setTimeout(()=>{
                 dispatch({type:'HIDE'}) 
@@ -19,11 +19,11 @@ export const useMessageContext = (DisplayMessage, isShow, setShowMessage, isErro
         }    
 
 
-    }
+    },[dispatch, DisplayMessage, isError, setShowMessage, isShow, messageTypeDysplay])
 
 
 
-     return{message, show, handleMessage, error}
+     return{message, show, handleMessage, error, messageType }
 
 
 
