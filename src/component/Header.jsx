@@ -47,7 +47,10 @@ const Container = styled.header`
     box-sizing:border-box;  
     margin:0 49.5px;
     padding-top: 40px;
-    
+    .profile{
+    border-radius:50%;
+
+  }
   
     
 `
@@ -60,7 +63,7 @@ const Ul = styled.ul`
 
 `
 const Img = styled.img`
-   
+ 
    ${handleImg} 
 
    @media(max-width: 1440px) {
@@ -92,6 +95,7 @@ const Img = styled.img`
     `: null}
   }
 
+
    
  `   
 
@@ -112,12 +116,12 @@ const Header = (props) => {
 				{user && <li>Olá, {user.displayName}</li>}
 
 				<li>
-					<Img
+					<Img className="profile"
 						onMouseLeave={() => setIsOverButton(false)}
 						onMouseEnter={() => setIsOverButton(true)}
 						type="user"
 						user={props.user}
-						src={userPhoto}
+						src={user&&user.photoURL?user.photoURL:userPhoto}
 						alt=""
 					/>
 				</li>

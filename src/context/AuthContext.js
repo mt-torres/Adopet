@@ -12,7 +12,7 @@ export const authReducer = (state, action) => {
         case 'LOGOUT':
                 return { ...state, user: null }
         case 'AUTH_IS_READY':
-                return { ...state, user: action.payload, authIsReady: true }
+                return { ...state, user: action.payload, userId:action.uid, authIsReady: true }
         default:
             return state
 
@@ -30,12 +30,23 @@ export const AuthContextProvider = ({children}) =>{
 
     useEffect(()=> {
         const unsub = auth.onAuthStateChanged((user) => {
-            dispatch({type: 'AUTH_IS_READY', payload: user })
+            let uid;
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                uid = user.uid;
+                // ...
+              } else {
+                // User is signed out
+                // ...
+              }
+            
+            dispatch({type: 'AUTH_IS_READY', payload: user, uid:uid })
             unsub()
         })
     },[])
 
-    //console.log('AuthContext state:', state)
+    console.log('AuthContext state:', state)
 
     return(
         <AuthContext.Provider value={{...state, dispatch}}>

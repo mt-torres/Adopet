@@ -1,7 +1,9 @@
 import { useEffect, useReducer, useState } from "react"
-import { db, timestamp } from "../database/Firebase"
+import { auth, db, storage, timestamp } from "../database/Firebase"
 import { addDoc, collection,doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { useMessageContext } from "./useMessageContext";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 
 
 let initialState ={
@@ -26,6 +28,8 @@ const firestoreReducer = (state, action) => {
             return {...state, userData: action.user, error: false, message:action.message, messageType: 'alert'};
         case 'UPDATED':
             return {...state, userData: action.user, error: false, message:action.message, messageType: 'success' };
+        case 'ADDIMAGE':
+            return {error: false, message:'Imagem carregada com sucesso', messageType: 'success' };
         case 'ERROR':
             return { isPending: false, document: null, success: false, error: true, message:action.payload, messageType: 'error'};    
         default:
@@ -43,6 +47,7 @@ export const useFirestore = (collectionDb, user) => {
     const [ showMessage, setShowMessage] = useState(false)
     const {handleMessage} = useMessageContext(message, showMessage, setShowMessage, error, messageType );
     const [isUpdating, setIsUpdating] = useState(false);
+    const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
   
      useEffect(()=>{
@@ -71,7 +76,7 @@ export const useFirestore = (collectionDb, user) => {
             
 
             console.log('ID',addedDocument.id)
-            setUseId(addedDocument.id)
+            //setUseId(addedDocument.id)
             //dispatchIfIsNotCancelled({type:'ADDED_DOCUMENT', payload: addedDocument})
             console.log(doc)
             dispatch({type:'ADDED_DOCUMENT', payload: addedDocument}) 
@@ -89,16 +94,14 @@ export const useFirestore = (collectionDb, user) => {
      // delete a document
      const deleteDocument = (id) => {
 
-
     }
-
-
     useEffect(() =>{
 
         return () => setIsCancelled(true)
 
     }, [])
    
+
     //fetching document
     useEffect( () =>{
         try{
@@ -118,8 +121,8 @@ export const useFirestore = (collectionDb, user) => {
             }
 
         }
-        
             getUserProfile()  
+        
         }catch(error){
           console.log(error)
         }
@@ -151,7 +154,49 @@ export const useFirestore = (collectionDb, user) => {
           setIsUpdating(false)
 
     }
-  
-    return{ document, updateDetails, isUpdating, addDocument, deleteDocument,userData }
+ 
+    //adding images
+    const uploadImage = (e, setUserPhoto, imageOwner) =>{
+        const metadata = {
+            customMetadata:{
+               'imageOwner':imageOwner     
+            } 
+          }; 
+        const file = e.target[0]?.files[0];
+        const FileRef = ref(storage,`ProfilePhotos/${imageOwner}/${file.name}`);
+                
+             const uploadTask = uploadBytesResumable(FileRef, file ,metadata); 
+             uploadTask.on(
+                 "state_changed",
+                 snapshot => {
+                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                     setImageUploadProgress(progress)
+                     setShowMessage(true)
+                     dispatch({type:'ADDIMAGE'})
+
+                 },
+                 error => {
+                    setShowMessage(true)
+                    dispatch({type:'ERROR',payload:'Não foi possível carregar a imagem, tente novamente'}) 
+                    console.log(error)
+                 },
+                 ()=> {
+                     getDownloadURL(uploadTask.snapshot.ref).then(url => {
+                        //atribuindo poto de perfil
+                         updateProfile(auth.currentUser, { photoURL: url })
+                         setUserPhoto(url)
+                     })
+                 }
+             ) 
+
+         
+
+    }
+
+    return{ document, updateDetails, isUpdating, addDocument, deleteDocument,userData, uploadImage }
 
 }
+
+
+
+

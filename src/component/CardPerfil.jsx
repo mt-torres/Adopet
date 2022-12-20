@@ -40,7 +40,7 @@ const CardPerfil = (props)=>{
             <Container>
                 <Img src={props.photo} alt="" />
                 <label for="avatar">Clique para editar</label>
-                <SelectPhoto type='file'id="avatar" name="avatar"></SelectPhoto>
+                <SelectPhoto type='file'id="avatar" name="avatar" onChange={e=>console.log(e.target[0])} ></SelectPhoto>
             </Container>
         </>
     )  

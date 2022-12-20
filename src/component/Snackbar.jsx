@@ -68,7 +68,6 @@ const P = styled.p`
             `
         }
     }}
-        //background: ${p =>p.error?`url(${errorIcon})`:`url(${success})`};
         width:24px;
         height:24px;
         margin-right:.2rem;

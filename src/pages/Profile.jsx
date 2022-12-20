@@ -1,7 +1,6 @@
 import {  Button, Card, CardPerfil, Footer, Form, Header, Input, Paragraph } from "../component/index"
 import styled, { createGlobalStyle } from 'styled-components'
 import curvaTop from '../layout/images/Group2.svg'
-import Foto from "../layout/images/cracha.png"
 import Forma1TD from '../layout/images/Forma1TD.svg'
 import Forma2TD from '../layout/images/Forma2TD.svg'
 import { useEffect, useState } from "react"
@@ -54,12 +53,13 @@ const H1 = styled.h1`
 
 const Profile = (props)=> {
     const { user } = useAuthContext();
+    const [ userPhoto, setUserPhoto ] = useState('');
     const [name, setName] = useState('');
     const [ phone, setPhone] = useState('');
     const [ city, setCity] = useState('');
     const [ about, setAbout]  = useState('');
     const [ isSubmited, setIsSubmited]  = useState(false);
-    const { addDocument, userData, updateDetails, isUpdating } = useFirestore('userProfile', user);
+    const { addDocument, userData, updateDetails, isUpdating, uploadImage } = useFirestore(`userProfile`, user);
     const  {message, show, error, messageType} = useMessageContext()
    
     useEffect(() => {
@@ -68,6 +68,7 @@ const Profile = (props)=> {
             setPhone(userData.phone);
             setCity(userData.city);
             setAbout(userData.about);
+            setUserPhoto(user.photoURL);
 
             console.log(userData)
 
@@ -92,6 +93,7 @@ const Profile = (props)=> {
             updateDetails({name,phone,city,about})
             console.log(message)
             console.log('isSubmited',isSubmited)
+            uploadImage(e, setUserPhoto, user.uid)
 
 
         }else if(!userData &&!isSubmited&&!error ){
@@ -100,6 +102,7 @@ const Profile = (props)=> {
             console.log(message)
             console.log('isSubmited',isSubmited)
             console.log(data)
+            //uploadImage()
 
 
         }
@@ -114,7 +117,7 @@ const Profile = (props)=> {
                 </Card>
                 <Form onSubmit={handleSubimt}  color='' padding={{All:"2rem 1rem"}} margin={{T:"1rem", D:"1.1rem"}} >
                     <H1>Perfil</H1>
-                    <CardPerfil photo={Foto}/>
+                    <CardPerfil photo={userPhoto}/>
                     <Input
                         value={name || ''}
                         onChange={e => setName(e.target.value)}
