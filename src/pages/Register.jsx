@@ -10,6 +10,7 @@ import PatasTablet from '../layout/images/PatasTablet.svg'
 import PatasDesktop from '../layout/images/PatasDesktop.svg';
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
+import { useValidForm } from "../hooks/useValidForm"
 
 
 
@@ -48,30 +49,17 @@ const Register = (props)=> {
 
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [userName, setUserName] = useState('');
 
     const {signup, isPending, error } = useSignup() 
-
+    const { validForm, alertError} = useValidForm();
+ 
     const handleSubimt = (e) =>{
         e.preventDefault()
         signup(registerEmail, registerPassword, userName )
 
     }
-
-   /*  const createUser = async () =>{
-        if(auth.currentUser){
-            console.log("erro")
-    }else{
-        console.log(auth.currentUser)
-        console.log('foi')
-        const user = await addDoc(userCollectionRef,{
-            userName,
-            registerEmail
-        })
-    }
-
-      
-    } */
 
 
        return(
@@ -84,14 +72,18 @@ const Register = (props)=> {
                     <Paragraph color="blue"padding='0 1rem' margin={{all:'0 0 1rem 0'}} paragraph="Então, antes de buscar seu melhor amigo, precisamos de alguns dados:"/>
                 </Card>
                 <Form padding={{All: '0 0 4rem 0'}} onSubmit={handleSubimt}>
-                    <Input
+                    <Input 
+                        required
+                        value={registerEmail}
                         width='312px'
                         type="email"
                         id="email"
                         label="Email"
                         mb='1.25rem'
                         placeholder="Escolha seu melhor email"
-                        onChange={(e)=> setRegisterEmail(e.target.value)}
+                        onChange={(e)=> validForm(e.target.value, 'email',setRegisterEmail )}
+                        //isError = {alertError}
+                        
                     />
                     <Input
                         value={userName}
@@ -100,23 +92,36 @@ const Register = (props)=> {
                         label="Nome"
                         mb='1.25rem'
                         placeholder="Digite seu nome completo"
-                        onChange={(e)=> setUserName(e.target.value)}
+                        onChange={(e)=> {validForm(e.target.value, 'name',setUserName)}}
+                        isError = {alertError}
+                        required
+
+
                     />
                     <Input
+                        value={registerPassword}
                         type="password"
                         id="Senha"
                         label="Senha"
                         mb='1.25rem'
                         placeholder="Crie sua senha"
                         password
-                        onChange={(e)=> {setRegisterPassword(e.target.value); console.log(registerPassword)}}
+                        onChange={(e)=> {validForm(e.target.value, 'password',setRegisterPassword)}}
+                        isError = {alertError}
+                        required
+
                     />
                     <Input
                         type="password"
                         id="confirmar-senha"
+                        value= {confirmPassword}
                         label="Confirmar sua senha"
                         placeholder="Repite a senha criada acima"
                         password
+                        onChange={(e)=> {validForm(e.target.value, 'passwordConfirmation',setConfirmPassword)}}
+                        isError = {alertError}
+                        required
+
                     />
                     {!isPending && <Button marginTop="1.5rem" >Cadastar</Button>}
                     

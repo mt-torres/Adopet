@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled, { css } from "styled-components";
 import hide from "../layout/images/hide.svg"
 import show from "../layout/images/show.svg"
+import { ErrorMessage } from "./ErrorMessage";
 
 const Container = styled.div`
     display: flex;
@@ -88,7 +89,7 @@ const Textarea = styled.textarea`
 
 const Input = (props) => {
     const [ showPassword, setShowPassword] = useState(false)
-
+    console.log(props.isError)
     return (
 		<Container optional={props.optional} mb={props.mb}>
 			<LabelStyled optional={props.optional} id={props.id}>
@@ -112,10 +113,13 @@ const Input = (props) => {
                         type={showPassword&&props.type==='password'? "text" : props.type}
                         password={props.password}
                         id={props.id}
+                        required={props.required }
+                        
                     ></InputStyled>
                 }
 				<CheckPassword showPassword={showPassword} onClick={()=>setShowPassword(state=>!state )} password={props.password}></CheckPassword>
 			</ContainerPassword>
+               {props.isError&&<ErrorMessage message={props.isError}/>}
 		</Container>
 	);
 

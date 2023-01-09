@@ -28,14 +28,7 @@ export const useSignup = () => {
 
             } 
 
-
-    
-       /*     //add display name
-           if(response !== null){
-             auth.currentUser.displayName = displayName
-
-           } */
-
+   
            //dispatch	login action
            dispatch({ type: 'LOGIN', payload: response.user })
 
@@ -65,24 +58,3 @@ export const useSignup = () => {
     return {signup, error, isPending }
 
 } 
-
-
-
-/* const register = async () =>{
-    try {
-        
-            const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-            if(getAuth().currentUser!== null){
-              const  displayName = getAuth().currentUser.user.displayName
-              displayName = userName
-            }
-            console.log(user)
-
-        
-
-    }catch(error){
-        console.log(error.message)
-        //console.log(auth.currentUser)
-
-    }
-} */

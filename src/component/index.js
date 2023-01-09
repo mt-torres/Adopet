@@ -9,3 +9,5 @@ export * from './Paragraph'
 export * from './PetCard'
 export * from './CardPerfil'
 export * from './DropdownMenu'
+export * from './ErrorMessage'
+
