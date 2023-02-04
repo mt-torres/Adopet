@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Adopet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## :pencil:Description
 
-## Available Scripts
+This project was a initiative of Alura where We should simulate a real project.  
+A site should be built using a Figma model and the activities was managed by Trello platform. 
 
-In the project directory, you can run:
+Adopet is a platform to assist and simplify the animals adoption.  
+User should create an account and fill the profile form in order to be eligible for the adoption process.  
+To begin the adoption process, user needs send us a form containing the animal name (our lovely animals can be found on the homepage) and contact details. The user profile will be analyzed and after user will be contacted by our team. 
 
-### `npm start`
+<!-- The main project functionality is to enable the user to share its codes in a easy way by using highlight.js library,
+and exporting it as an image. -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Figma model](https://www.figma.com/file/TlfkDoIu8uyjZNla1T8TpH/Challenge---Adopet?node-id=534%3A279&t=box5tXKN1gPgd3tP-0)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## :dart: Goals
 
-### `npm test`
+My purpose is to build a project from start to finish where the plataform could be used as a real project.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## :wrench: Tools
+- Visual Studio code
+- JavaScript
+- React
+- Google Firebase
+- Figma
+- Trello
+  
+## :arrow_forward: Running the project
 
-### `npm run build`
+1. Clone the project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```
+   git clone https://github.com/mt-torres/Adopet
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Project should be opened through a local sever. I recommend using the Live Server extension.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- Or just acess [mt-torres.github.io/alura-dev/editor.html](https://mt-torres.github.io/alura-dev/editor.html) -->
 
-### `npm run eject`
+## :construction::warning: Under construction
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### features to be implemented:
+- Welcome message
+- Replace the firebase sever messages
+- Form validation
+- Enable the profile photo upload
+- Create a tool to edit profile photos
+- Enable password recovery
+- Verify user email 
+- Enable form submission
+- Refactor and organize Javascript code 
+- A form to include new animals available only for admin users

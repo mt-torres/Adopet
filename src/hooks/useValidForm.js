@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 
 
 export const useValidForm = () => {
    const [ confirmPassword, setConfirmPassword ] = useState('')
    const [ confirmedPassword, setConfirmedPassword ] = useState('')
-   const [ alertError, setAlertError ] = useState('')
 
 
     const valid = {
@@ -23,11 +22,11 @@ export const useValidForm = () => {
 
         },
         password:{
-            successPattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/,
-            errorPattern: [(x) => x.length  < 8, (x) => x.length  > 8],
+            successPattern: /^[0-9a-zA-Z$*_&@#]{8,}/, //corrigir pattern
+            errorPattern: [(x) => x.length  < 8],
             messageError:{
                 0:'A senha deve conter no mínimo  8 caracteres',
-                1:'Senha maior que 8 caracteres',
+               // 1:'Senha maior que 8 caracteres',
             }
 
         },
@@ -40,33 +39,33 @@ export const useValidForm = () => {
     }
   
 
-    const validForm = (text, inputType, setText ) => {
-        setText(text)
-        setAlertError('')
-       
-        if(inputType === 'password') setConfirmPassword(text)
-        if(inputType === 'passwordConfirmation') setConfirmedPassword(text)
-        if((inputType !== 'passwordConfirmation' && valid[inputType].successPattern.test(text)) || (inputType === 'passwordConfirmation' && valid[inputType].successPattern === text  )){
+    const validForm = (e, inputType, setText ) => {
+        setText(e.target.value)
+        
+        if(inputType === 'password') setConfirmPassword(e.target.value)
+        if(inputType === 'passwordConfirmation') setConfirmedPassword(e.target.value)
+        if((inputType !== 'passwordConfirmation' && valid[inputType].successPattern.test(e.target.value)) || (inputType === 'passwordConfirmation' && valid[inputType].successPattern === e.target.value  )){
             console.log('ok ',inputType)
+            e.target.setCustomValidity('')
 
         }else{
             if(valid[inputType].errorPattern.length > 0){
                 for (let index = 0; index < valid[inputType].errorPattern.length; index++) {
-                    if(valid[inputType].errorPattern[index](text)){
+                    if(valid[inputType].errorPattern[index](e.target.value)){
                         console.log(index)
                         console.log(valid[inputType].messageError[index]);
+                        e.target.setCustomValidity(valid[inputType].messageError[index])
                         break
                     }
                 }
             }else{
-                console.log(valid[inputType].messageError);
-                setAlertError(valid[inputType].messageError)
+                e.target.setCustomValidity(valid[inputType].messageError)
 
             }
         }
       
 
     }
-    return {validForm, alertError}
+    return {validForm}
 
 } 

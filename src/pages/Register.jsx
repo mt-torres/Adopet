@@ -53,7 +53,7 @@ const Register = (props)=> {
     const [userName, setUserName] = useState('');
 
     const {signup, isPending, error } = useSignup() 
-    const { validForm, alertError} = useValidForm();
+    const { validForm } = useValidForm();
  
     const handleSubimt = (e) =>{
         e.preventDefault()
@@ -81,24 +81,22 @@ const Register = (props)=> {
                         label="Email"
                         mb='1.25rem'
                         placeholder="Escolha seu melhor email"
-                        onChange={(e)=> validForm(e.target.value, 'email',setRegisterEmail )}
-                        //isError = {alertError}
+                        onChange={(e)=> validForm(e, 'email',setRegisterEmail )}
                         
                     />
                     <Input
+                        required
                         value={userName}
                         width='312px'  
                         id="Nome"
                         label="Nome"
                         mb='1.25rem'
                         placeholder="Digite seu nome completo"
-                        onChange={(e)=> {validForm(e.target.value, 'name',setUserName)}}
-                        isError = {alertError}
-                        required
-
+                        onChange={(e)=> {validForm(e, 'name',setUserName)}}
 
                     />
                     <Input
+                        required
                         value={registerPassword}
                         type="password"
                         id="Senha"
@@ -106,9 +104,8 @@ const Register = (props)=> {
                         mb='1.25rem'
                         placeholder="Crie sua senha"
                         password
-                        onChange={(e)=> {validForm(e.target.value, 'password',setRegisterPassword)}}
-                        isError = {alertError}
-                        required
+                        onChange={(e)=> {validForm(e, 'password',setRegisterPassword)}}
+                        
 
                     />
                     <Input
@@ -118,8 +115,7 @@ const Register = (props)=> {
                         label="Confirmar sua senha"
                         placeholder="Repite a senha criada acima"
                         password
-                        onChange={(e)=> {validForm(e.target.value, 'passwordConfirmation',setConfirmPassword)}}
-                        isError = {alertError}
+                        onChange={(e)=> {validForm(e, 'passwordConfirmation',setConfirmPassword)}}
                         required
 
                     />

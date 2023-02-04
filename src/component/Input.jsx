@@ -89,7 +89,20 @@ const Textarea = styled.textarea`
 
 const Input = (props) => {
     const [ showPassword, setShowPassword] = useState(false)
-    console.log(props.isError)
+    const [ message, setMessage] = useState(false)
+    const [ isError, setIsError] = useState(false)
+
+    function isValid(e){
+       if(!e.target.validity.valid){
+        setMessage(e.target.validationMessage)
+        setIsError(true)
+       }else{
+        setMessage('')
+        setIsError(false) 
+       }
+
+    }
+
     return (
 		<Container optional={props.optional} mb={props.mb}>
 			<LabelStyled optional={props.optional} id={props.id}>
@@ -114,12 +127,13 @@ const Input = (props) => {
                         password={props.password}
                         id={props.id}
                         required={props.required }
+                        onBlur={e => isValid(e) }
                         
                     ></InputStyled>
                 }
 				<CheckPassword showPassword={showPassword} onClick={()=>setShowPassword(state=>!state )} password={props.password}></CheckPassword>
 			</ContainerPassword>
-               {props.isError&&<ErrorMessage message={props.isError}/>}
+               {isError&&<ErrorMessage message={message}/>}
 		</Container>
 	);
 
