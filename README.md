@@ -20,8 +20,9 @@ My purpose is to build a project from start to finish where the plataform could 
 
 ## :wrench: Tools
 - Visual Studio code
-- JavaScript
 - React
+- JavaScript
+- Styled-components
 - Google Firebase
 - Figma
 - Trello
@@ -34,7 +35,16 @@ My purpose is to build a project from start to finish where the plataform could 
    git clone https://github.com/mt-torres/Adopet
    ```
 
-2. Project should be opened through a local sever. I recommend using the Live Server extension.
+2. Go to project directory and install node modules
+
+   ```
+   npm install
+   ```
+
+3. Start sever
+
+   ```
+   npm start
 
 <!-- Or just acess [mt-torres.github.io/alura-dev/editor.html](https://mt-torres.github.io/alura-dev/editor.html) -->
 
